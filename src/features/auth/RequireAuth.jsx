@@ -1,11 +1,11 @@
 import { Outlet, Navigate } from "react-router-dom";
 import { useContext, useState, createContext, useEffect } from "react";
-import { AuthenticationContext } from "./Authentication";
-import { monitorElementCollection } from "../api";
+import { AuthenticationContext } from "./AuthProvider";
+import { monitorElementCollection } from "../../api";
 
 const AuthRequiredContext = createContext();
 
-export default function AuthRequired() {
+export default function RequireAuth() {
   // State for elements collections in database
   const [lists, setLists] = useState({});
 
@@ -16,7 +16,7 @@ export default function AuthRequired() {
     const unsubscribeTypes = monitorElementCollection("types", setLists);
     const unsubscribeConditions = monitorElementCollection(
       "conditions",
-      setLists
+      setLists,
     );
     const unsubscribeColors = monitorElementCollection("colors", setLists);
     const unsubscribeStates = monitorElementCollection("states", setLists);

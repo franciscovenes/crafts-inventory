@@ -1,7 +1,7 @@
 import { FaPowerOff, FaHome } from "react-icons/fa";
 import "../css/header.css";
 import { useContext } from "react";
-import { AuthenticationContext } from "./Authentication";
+import { AuthenticationContext } from "../features/auth/AuthProvider";
 import { logOut } from "../api";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
 

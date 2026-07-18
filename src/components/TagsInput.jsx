@@ -3,7 +3,7 @@ import "../css/tagsInput.css";
 import PropTypes from "prop-types";
 import { AiOutlineClose } from "react-icons/ai";
 import { getSpanishName } from "../utils/utils";
-import { AuthRequiredContext } from "./AuthRequired";
+import { AuthRequiredContext } from "../features/auth/RequireAuth";
 
 export default function TagsInput({
   retrieve = false,

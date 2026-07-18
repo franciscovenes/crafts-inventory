@@ -5,7 +5,7 @@ import { useState, useContext } from "react";
 import { BiHide, BiShow } from "react-icons/bi";
 import { signIn } from "../api";
 import { useNavigate, useLocation, Navigate } from "react-router-dom";
-import { AuthenticationContext } from "../components/Authentication";
+import { AuthenticationContext } from "../features/auth/AuthProvider";
 
 export default function Login() {
   const navigate = useNavigate();

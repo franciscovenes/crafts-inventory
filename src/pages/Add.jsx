@@ -1,5 +1,5 @@
 import { useContext, useState, lazy, Suspense } from "react";
-import { AuthenticationContext } from "../components/Authentication";
+import { AuthenticationContext } from "../features/auth/AuthProvider";
 import TagsInput from "../components/TagsInput";
 import AddParam from "../components/AddParam";
 import { addNewItem, uploadFile, addNewDocRef, getLastItem } from "../api";

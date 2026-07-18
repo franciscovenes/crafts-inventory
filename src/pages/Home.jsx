@@ -4,7 +4,7 @@ import logo from "/img/logo.png";
 import RegisterUser from "../components/RegisterUser";
 import Fade from "../components/Fade";
 import { useState, useContext } from "react";
-import { AuthenticationContext } from "../components/Authentication";
+import { AuthenticationContext } from "../features/auth/AuthProvider";
 
 export default function Home() {
   const { currentUser } = useContext(AuthenticationContext);

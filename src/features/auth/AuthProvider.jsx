@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import { createContext, useEffect, useState } from "react";
-import { monitorAuth } from "../api";
+import { monitorAuth } from "../../api";
 const AuthenticationContext = createContext();
 
-export default function Authentication({ children }) {
+export default function AuthProvider({ children }) {
   // State for currently authenticated user
   const [currentUser, setCurrentUser] = useState();
 
@@ -28,6 +28,6 @@ export default function Authentication({ children }) {
 
 export { AuthenticationContext };
 
-Authentication.propTypes = {
+AuthProvider.propTypes = {
   children: PropTypes.node,
 };
