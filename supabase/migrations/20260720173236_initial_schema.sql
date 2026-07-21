@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS items (
     CONSTRAINT fk_state 
         FOREIGN KEY(state_id) 
         REFERENCES states(id) 
-        ON DELETE RESTRICT
+        ON DELETE RESTRICT,
     
     CONSTRAINT check_price_positive
         CHECK (price >= 0),
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS items (
     CONSTRAINT check_width_positive
         CHECK (width_cm > 0),
     CONSTRAINT check_hours_positive
-        CHECK (production_hours > 0),
+        CHECK (production_hours > 0)
 );
 
 CREATE TABLE IF NOT EXISTS item_colors (
@@ -120,10 +120,20 @@ CREATE TABLE IF NOT EXISTS profiles (
     id UUID PRIMARY KEY,
     role TEXT NOT NULL DEFAULT 'user'
         CHECK (role IN ('user', 'admin')),
-    active BOOLEAN NOT NULL DEFAULT TRUE
+    active BOOLEAN NOT NULL DEFAULT TRUE,
 
     CONSTRAINT fk_profile_user
         FOREIGN KEY (id)
         REFERENCES auth.users(id)
         ON DELETE CASCADE
 );
+
+ALTER TABLE models ENABLE ROW LEVEL SECURITY;
+ALTER TABLE types ENABLE ROW LEVEL SECURITY;
+ALTER TABLE artisans ENABLE ROW LEVEL SECURITY;
+ALTER TABLE conditions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE states ENABLE ROW LEVEL SECURITY;
+ALTER TABLE colors ENABLE ROW LEVEL SECURITY;
+ALTER TABLE items ENABLE ROW LEVEL SECURITY;
+ALTER TABLE item_colors ENABLE ROW LEVEL SECURITY;
+ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;

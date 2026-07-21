@@ -16,9 +16,9 @@ export default function Home() {
 
   return (
     <div className="home-container">
-      <img className="logo" src={logo} alt="logo" />
+      {/* <img className="logo" src={logo} alt="logo" /> */}
       {/* Navigation links to add and retrieve pages */}
-      <nav className="home-nav">
+      {/*  <nav className="home-nav">
         <NavLink className="home-nav-link" to="/add">
           Añadir item
         </NavLink>
@@ -26,7 +26,7 @@ export default function Home() {
         <NavLink className="home-nav-link" to="/retrieve">
           Consultar items
         </NavLink>
-      </nav>
+      </nav> */}
 
       {/* Button to mount/unmount signup component */}
       {currentUser.admin && (
