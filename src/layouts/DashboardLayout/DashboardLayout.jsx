@@ -12,8 +12,9 @@ export default function DashboardLayout() {
 
   return (
     <div className={styles.container}>
-      <Header onOpen={() => setisSidebarOpen(true)} />
+      <Header className={styles.header} onOpen={() => setisSidebarOpen(true)} />
       <Sidebar
+        className={styles.sidebar}
         isSidebarOpen={isSidebarOpen}
         onClose={() => setisSidebarOpen(false)}
       />

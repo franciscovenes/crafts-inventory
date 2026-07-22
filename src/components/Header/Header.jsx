@@ -8,11 +8,11 @@ import UserGreeting from "../UserGreeting/UserGreeting";
 import { Menu } from "lucide-react";
 import LogoutButton from "../LogoutButton/LogoutButton";
 
-export default function Header({ onOpen }) {
+export default function Header({ className, onOpen }) {
   const location = useLocation();
 
   return (
-    <header className={styles.container}>
+    <header className={`${styles.container} ${className}`}>
       <button type="button" className={styles.menuOpenBtn} onClick={onOpen}>
         <Menu />
       </button>

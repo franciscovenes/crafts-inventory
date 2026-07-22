@@ -4,10 +4,10 @@ import styles from "./Sidebar.module.css";
 import { X } from "lucide-react";
 import AccountPanel from "../AccountPanel/AccountPanel";
 
-export default function Sidebar({ isSidebarOpen, onClose }) {
+export default function Sidebar({ className, isSidebarOpen, onClose }) {
   return (
     <aside
-      className={`${styles.container} ${isSidebarOpen ? styles.open : ""}`}
+      className={`${styles.container} ${className} ${isSidebarOpen ? styles.open : ""}`}
     >
       <button type="button" className={styles.menuCloseBtn} onClick={onClose}>
         <X />

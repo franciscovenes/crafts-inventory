@@ -55,8 +55,16 @@
 .mainMenu a.active {
   background-color: var(--color-primary-overlay-active);
 }
+
 @media (min-width: 48rem) {
   .container {
+    position: static;
+    transform: none;
+    z-index: auto;
+    height: auto;
+  }
+
+  .menuCloseBtn {
     display: none;
   }
 }
