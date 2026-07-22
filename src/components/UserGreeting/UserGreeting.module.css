@@ -1,0 +1,8 @@
+.container {
+  order: 2;
+}
+
+strong {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-strong);
+}

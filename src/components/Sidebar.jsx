@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import UserPanel from "./UserPanel";
+import UserPanel from "./AccountPanel/AccountPanel";
 import { navigation } from "../app/navigation";
 
 export default function Sidebar() {

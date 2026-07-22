@@ -1,0 +1,14 @@
+.container {
+  margin-inline: var(--space-md);
+  margin-top: auto;
+}
+
+.mobileLogout {
+  display: flex;
+}
+
+@media (min-width: 48rem) {
+  .mobileLogout {
+    display: none;
+  }
+}

@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
-import logoNotFound from "/img/logoNotFound.png";
-import Footer from "../components/Footer";
+// import logoNotFound from "/img/logoNotFound.png";
+// import Footer from "../components/Footer";
 import "../css/notFound.css";
 
 export default function NotFound() {
