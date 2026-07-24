@@ -26,8 +26,8 @@ export default function Home() {
               const mobileRecentItems = items.slice(0, 3);
               return (
                 <>
-                  <RecentItemsTable items={items} />
-                  <RecentItemsCards items={mobileRecentItems} />
+                  {/* <RecentItemsTable items={items} />
+                  <RecentItemsCards items={mobileRecentItems} /> */}
                 </>
               );
             }}

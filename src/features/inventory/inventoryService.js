@@ -1,6 +1,6 @@
 import { supabase } from "../../lib/supabase";
 
-export async function getRecentItems({ limit = 5 } = {}) {
+export async function getItems({ limit } = {}) {
   const { data, error } = await supabase
     .from("items")
     .select(
