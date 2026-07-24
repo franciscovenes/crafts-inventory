@@ -16,8 +16,10 @@ export const router = createBrowserRouter([
           {
             path: "/",
             Component: Home,
-            loader: async () => {
-              return await getRecentItems({ limit: 5 });
+            loader: () => {
+              return {
+                recentItems: getRecentItems({ limit: 5 }),
+              };
             },
           },
           {
@@ -33,11 +35,23 @@ export const router = createBrowserRouter([
       },
       {
         path: "/login",
-        Component: Login,
+        lazy: async () => {
+          const { default: Login } = await import("../pages/Login");
+
+          return {
+            Component: Login,
+          };
+        },
       },
       {
         path: "*",
-        Component: NotFound,
+        lazy: async () => {
+          const { default: NotFound } = await import("../pages/NotFound");
+
+          return {
+            Component: NotFound,
+          };
+        },
       },
     ],
   },

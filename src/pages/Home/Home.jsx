@@ -1,9 +1,9 @@
 import styles from "./Home.module.css";
-import { NavLink, useLoaderData } from "react-router-dom";
+import { Await, NavLink, useLoaderData } from "react-router-dom";
 // import logo from "/img/logo.png";
 import RegisterUser from "../../components/RegisterUser";
 import Fade from "../../components/Fade";
-import { useState, useContext } from "react";
+import { useState, useContext, Suspense } from "react";
 import { AuthenticationContext } from "../../features/auth/AuthProvider";
 import { useCurrentUser } from "../../features/auth/useCurrentUser";
 import RecentItemsTable from "../../components/RecentItemsTable/RecentItemsTable";
@@ -14,15 +14,25 @@ export default function Home() {
   // const { currentUser } = useContext(AuthenticationContext);
   const currentUser = useCurrentUser();
 
-  const recentItems = useLoaderData();
-  const mobileRecentItems = recentItems.slice(0, 3);
+  const { recentItems } = useLoaderData();
 
   return (
     <PageLayout title="Dashboard">
       <section className={styles.section}>
         <h2>Recent Items</h2>
-        <RecentItemsTable items={recentItems} />
-        <RecentItemsCards items={mobileRecentItems} />
+        <Suspense fallback={<p>Loading...</p>}>
+          <Await resolve={recentItems}>
+            {(items) => {
+              const mobileRecentItems = items.slice(0, 3);
+              return (
+                <>
+                  <RecentItemsTable items={items} />
+                  <RecentItemsCards items={mobileRecentItems} />
+                </>
+              );
+            }}
+          </Await>
+        </Suspense>
       </section>
     </PageLayout>
   );
