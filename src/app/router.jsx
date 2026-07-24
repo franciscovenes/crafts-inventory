@@ -4,6 +4,7 @@ import NotFound from "../pages/NotFound";
 import Home from "../pages/Home/Home";
 import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
 import AppLayout from "../layouts/AppLayout/AppLayout";
+import { getRecentItems } from "../features/inventory/inventoryService";
 
 export const router = createBrowserRouter([
   {
@@ -14,7 +15,10 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "/",
-            element: <Home />,
+            Component: Home,
+            loader: async () => {
+              return await getRecentItems({ limit: 5 });
+            },
           },
           {
             path: "add",
@@ -25,24 +29,15 @@ export const router = createBrowserRouter([
               };
             },
           },
-          {
-            path: "retrieve",
-            lazy: async () => {
-              const { default: Retrieve } = await import("../pages/Retrieve");
-              return {
-                Component: Retrieve,
-              };
-            },
-          },
         ],
       },
       {
         path: "/login",
-        element: <Login />,
+        Component: Login,
       },
       {
         path: "*",
-        element: <NotFound />,
+        Component: NotFound,
       },
     ],
   },

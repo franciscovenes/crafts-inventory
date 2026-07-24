@@ -11,7 +11,7 @@
   /* Colors */
 
   --color-background: #faf9f7;
-  --color-surface: #ffffff;
+  --color-surface: #fbfaf8;
 
   --color-primary: #376065;
   --color-primary-hover: #2f5358;
@@ -26,6 +26,7 @@
 
   --color-error: #b91c1c;
   --color-success: #166534;
+  --color-success-background: #16653414;
 
   --color-primary-overlay-hover: #ffffff14;
   --color-primary-overlay-active: #ffffff24;

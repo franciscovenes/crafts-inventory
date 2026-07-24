@@ -1,18 +1,29 @@
 import styles from "./Home.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
 // import logo from "/img/logo.png";
 import RegisterUser from "../../components/RegisterUser";
 import Fade from "../../components/Fade";
 import { useState, useContext } from "react";
 import { AuthenticationContext } from "../../features/auth/AuthProvider";
 import { useCurrentUser } from "../../features/auth/useCurrentUser";
+import RecentItemsTable from "../../components/RecentItemsTable/RecentItemsTable";
+import RecentItemsCards from "../../components/RecentItemsCards/RecentItemsCards.jsx";
 
 export default function Home() {
   // const { currentUser } = useContext(AuthenticationContext);
   const currentUser = useCurrentUser();
 
-  // State to mount/unmount signup component
-  const [register, setRegister] = useState(false);
+  const recentItems = useLoaderData();
+  const mobileRecentItems = recentItems.slice(0, 3);
 
-  return <div className={styles.container}>Home</div>;
+  return (
+    <div className={styles.container}>
+      <h1>Dashboard</h1>
+      <section>
+        <h2>Recent Items</h2>
+        <RecentItemsTable items={recentItems} />
+        <RecentItemsCards items={mobileRecentItems} />
+      </section>
+    </div>
+  );
 }

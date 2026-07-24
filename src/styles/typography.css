@@ -6,6 +6,8 @@ body {
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-normal);
   color: var(--color-text);
+
+  background-color: var(--color-background);
 }
 
 /* Headings */
