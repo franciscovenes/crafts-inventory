@@ -1,3 +1,5 @@
-.container {
-  padding: var(--space-md);
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
 }

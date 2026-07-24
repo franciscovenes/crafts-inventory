@@ -8,6 +8,7 @@ import { AuthenticationContext } from "../../features/auth/AuthProvider";
 import { useCurrentUser } from "../../features/auth/useCurrentUser";
 import RecentItemsTable from "../../components/RecentItemsTable/RecentItemsTable";
 import RecentItemsCards from "../../components/RecentItemsCards/RecentItemsCards.jsx";
+import PageLayout from "../../layouts/PageLayout/PageLayout.jsx";
 
 export default function Home() {
   // const { currentUser } = useContext(AuthenticationContext);
@@ -17,13 +18,12 @@ export default function Home() {
   const mobileRecentItems = recentItems.slice(0, 3);
 
   return (
-    <div className={styles.container}>
-      <h1>Dashboard</h1>
-      <section>
+    <PageLayout title="Dashboard">
+      <section className={styles.section}>
         <h2>Recent Items</h2>
         <RecentItemsTable items={recentItems} />
         <RecentItemsCards items={mobileRecentItems} />
       </section>
-    </div>
+    </PageLayout>
   );
 }
