@@ -10,7 +10,7 @@ import {
   handleInputChange,
   trimInputsOnBlur,
   getEmptyFields,
-} from "../utils/utils";
+} from "../utils/utils.js.old";
 
 export default function Item({ data, docRef, setFunc }) {
   // State to keep track of item's data while editing
@@ -94,7 +94,7 @@ export default function Item({ data, docRef, setFunc }) {
       .map((entry) => {
         if (
           ["types", "models", "artisans", "conditions", "states"].includes(
-            entry[0]
+            entry[0],
           )
         ) {
           return [`${entry[0].slice(0, -1)}`, entry[1][0].toLowerCase()];

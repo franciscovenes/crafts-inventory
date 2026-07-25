@@ -8,7 +8,7 @@ import {
   handleInputChange,
   trimInputsOnBlur,
   getEmptyFields,
-} from "../utils/utils";
+} from "../utils/utils.js.old";
 import { useCurrentUser } from "../features/auth/useCurrentUser";
 
 const Item = lazy(() => {

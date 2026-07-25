@@ -4,7 +4,9 @@ import NotFound from "../pages/NotFound";
 import Home from "../pages/Home/Home";
 import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
 import AppLayout from "../layouts/AppLayout/AppLayout";
-import { getRecentItems } from "../features/inventory/inventoryService";
+import { getItems } from "../features/inventory/inventoryService";
+
+const INVENTORY_PAGE_SIZE = 5;
 
 export const router = createBrowserRouter([
   {
@@ -16,9 +18,24 @@ export const router = createBrowserRouter([
           {
             path: "/",
             Component: Home,
-            loader: () => {
+            loader: () => getItems({ limit: 5 }),
+          },
+          {
+            path: "inventory",
+            lazy: async () => {
+              const { default: Inventory } =
+                await import("../pages/Inventory/Inventory");
               return {
-                recentItems: getRecentItems({ limit: 5 }),
+                Component: Inventory,
+              };
+            },
+            loader: ({ request }) => {
+              const url = new URL(request.url);
+              const page = Number(url.searchParams.get("page")) || 1;
+
+              return {
+                pageSize: INVENTORY_PAGE_SIZE,
+                data: getItems({ page, pageSize: INVENTORY_PAGE_SIZE }),
               };
             },
           },

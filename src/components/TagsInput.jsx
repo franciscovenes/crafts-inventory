@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import "../css/tagsInput.css";
 import PropTypes from "prop-types";
 import { AiOutlineClose } from "react-icons/ai";
-import { getSpanishName } from "../utils/utils";
+import { getSpanishName } from "../utils/utils.js.old";
 import { AuthRequiredContext } from "../features/auth/RequireAuth";
 
 export default function TagsInput({
