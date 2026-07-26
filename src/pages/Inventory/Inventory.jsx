@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import InventoryCards from "../../features/inventory/InventoryList/InventoryCards";
 import Pagination from "../../features/inventory/Pagination/Pagination";
 export default function Inventory() {
-  const { pageSize, data } = useLoaderData();
+  const { pageSize, dataPromise } = useLoaderData();
 
   const navigation = useNavigation();
 
@@ -18,7 +18,7 @@ export default function Inventory() {
     <PageLayout title="Inventory">
       <section className={styles.section}>
         <Suspense fallback={<p>Loading...</p>}>
-          <Await resolve={data}>
+          <Await resolve={dataPromise}>
             {({ items, total }) => (
               <>
                 <Pagination total={total} pageSize={pageSize} />

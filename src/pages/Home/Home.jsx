@@ -18,15 +18,17 @@ export default function Home() {
   // const { currentUser } = useContext(AuthenticationContext);
   const currentUser = useCurrentUser();
 
-  const { items } = useLoaderData();
+  const { recentItemsPromise } = useLoaderData();
+
+  console.log(recentItemsPromise);
 
   return (
     <PageLayout title="Dashboard">
       <section className={styles.section}>
         <h2>Recent Items</h2>
         <Suspense fallback={<p>Loading...</p>}>
-          <Await resolve={items}>
-            {(items) => {
+          <Await resolve={recentItemsPromise}>
+            {({ items }) => {
               const mobileRecentItems = items.slice(0, 3);
               return (
                 <>
