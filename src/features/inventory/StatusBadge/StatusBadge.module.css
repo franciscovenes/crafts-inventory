@@ -1,0 +1,11 @@
+.container {
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+
+  background: var(--color-border);
+  color: var(--color-text);
+
+  white-space: nowrap;
+}

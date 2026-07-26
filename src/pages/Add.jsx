@@ -8,14 +8,16 @@ import {
   handleInputChange,
   trimInputsOnBlur,
   getEmptyFields,
-} from "../utils/utils";
+} from "../utils/utils.js.old";
+import { useCurrentUser } from "../features/auth/useCurrentUser";
 
 const Item = lazy(() => {
   return import("../components/Item");
 });
 
 export default function Add() {
-  const { currentUser } = useContext(AuthenticationContext);
+  // const { currentUser } = useContext(AuthenticationContext);
+  const currentUser = useCurrentUser();
 
   // State with data to be added to new item
   const [data, setData] = useState({

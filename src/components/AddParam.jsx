@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AiOutlinePlus, AiOutlineClose } from "react-icons/ai";
 import { addElement, isNewElement } from "../api";
-import { getSpanishName } from "../utils/utils";
+import { getSpanishName } from "../utils/utils.js.old";
 import PropTypes from "prop-types";
 import ReactPortal from "./ReactPortal";
 import Fade from "./Fade";

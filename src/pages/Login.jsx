@@ -1,5 +1,5 @@
-import Footer from "../components/Footer";
-import logo from "/img/logo.png";
+// import Footer from "../components/Footer";
+// import logo from "/img/logo.png";
 import "../css/login.css";
 import { useState, useContext } from "react";
 import { BiHide, BiShow } from "react-icons/bi";

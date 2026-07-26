@@ -1,0 +1,40 @@
+.container {
+  flex: 1;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+
+  background-color: #000;
+  opacity: 0.4;
+
+  z-index: 20;
+}
+
+@media (min-width: 48rem) {
+  .container {
+    grid-template:
+      "header header" auto
+      "sidebar main" 1fr
+      / var(--sidebar-width) 1fr;
+  }
+
+  .header {
+    grid-area: header;
+  }
+
+  .sidebar {
+    grid-area: sidebar;
+  }
+
+  .main {
+    grid-area: main;
+  }
+
+  .overlay {
+    display: none;
+  }
+}

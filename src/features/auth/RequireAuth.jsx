@@ -6,6 +6,7 @@ import { monitorElementCollection } from "../../api";
 const AuthRequiredContext = createContext();
 
 export default function RequireAuth() {
+  /*   
   // State for elements collections in database
   const [lists, setLists] = useState({});
 
@@ -30,6 +31,7 @@ export default function RequireAuth() {
       unsubscribeStates();
     };
   }, []);
+ */
 
   const { currentUser } = useContext(AuthenticationContext);
 
@@ -47,7 +49,9 @@ export default function RequireAuth() {
   }
 
   return (
-    <AuthRequiredContext.Provider value={{ lists }}>
+    <AuthRequiredContext.Provider
+    // value={{ lists }}
+    >
       <Outlet />
     </AuthRequiredContext.Provider>
   );

@@ -7,6 +7,7 @@ export default function AuthProvider({ children }) {
   // State for currently authenticated user
   const [currentUser, setCurrentUser] = useState();
 
+  /* 
   // Create listener for changes in firebase authentication and update currentUser state, if needed.
   useEffect(() => {
     const unsubscribeAuth = monitorAuth(setCurrentUser);
@@ -14,6 +15,7 @@ export default function AuthProvider({ children }) {
       unsubscribeAuth;
     };
   }, []);
+ */
 
   return (
     <AuthenticationContext.Provider

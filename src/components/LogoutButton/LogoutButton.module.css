@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding-block: var(--space-sm);
+  transition: color 150ms ease;
+}
+
+.container svg {
+  width: 1em;
+  height: 1em;
+}
+
+.header {
+  color: var(--color-text-muted);
+}
+.header:hover {
+  color: var(--color-text);
+}
+
+.sidebar {
+  color: var(--color-on-primary);
+  opacity: 0.85;
+}
+
+.sidebar:hover {
+  opacity: 1;
+}

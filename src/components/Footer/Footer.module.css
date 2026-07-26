@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding-inline: var(--space-lg);
+  height: var(--footer-height);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+
+  border-top: 1px solid var(--color-border);
+  margin-top: auto;
+}
+
+.container p {
+  text-align: center;
+}
+
+.container a {
+  font-weight: var(--font-weight-medium);
+}
+
+@media (min-width: 48rem) {
+  .container {
+    padding-inline: var(--space-xl);
+  }
+}
