@@ -24,8 +24,9 @@ export default function DashboardLayout() {
           onClick={() => setisSidebarOpen(false)}
         ></div>
       )}
-      {navigation.state === "loading" && <div>Loading...</div>}
+
       <main className={styles.main}>
+        {navigation.state === "loading" && <div>Loading...</div>}
         {/* Page content */}
         <Outlet />
       </main>

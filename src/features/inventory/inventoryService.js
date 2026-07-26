@@ -50,3 +50,52 @@ export async function getItems({ limit, page, pageSize } = {}) {
 
   return { items, total };
 }
+
+export async function getItemById(id) {
+  const { data, error } = await supabase
+    .from("items")
+    .select(
+      `
+      id,
+      model_id,
+      type_id,
+      artisan_id,
+      state_id,
+      condition_id,
+      price,
+      length_cm,
+      width_cm,
+      production_hours,
+      location,
+      created_at,
+      updated_at,
+      models(name),
+      types(name),
+      artisans(name),
+      states(name),
+      conditions(name),
+      item_colors(
+        colors(name)
+      )
+      `,
+    )
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  const { models, types, artisans, states, conditions, item_colors, ...rest } =
+    data;
+
+  return {
+    ...rest,
+    model: models.name,
+    type: types.name,
+    artisan: artisans.name,
+    state: states.name,
+    condition: conditions.name,
+    colors: item_colors.map(({ colors }) => colors.name),
+  };
+}

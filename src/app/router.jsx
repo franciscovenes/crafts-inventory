@@ -1,10 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
-import Login from "../pages/Login";
-import NotFound from "../pages/NotFound";
 import Home from "../pages/Home/Home";
 import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
 import AppLayout from "../layouts/AppLayout/AppLayout";
-import { getItems } from "../features/inventory/inventoryService";
+import { getItems, getItemById } from "../features/inventory/inventoryService";
 
 const INVENTORY_PAGE_SIZE = 5;
 
@@ -18,7 +16,7 @@ export const router = createBrowserRouter([
           {
             path: "/",
             Component: Home,
-            loader: () => getItems({ limit: 5 }),
+            loader: () => ({ recentItemsPromise: getItems({ limit: 5 }) }),
           },
           {
             path: "inventory",
@@ -35,9 +33,20 @@ export const router = createBrowserRouter([
 
               return {
                 pageSize: INVENTORY_PAGE_SIZE,
-                data: getItems({ page, pageSize: INVENTORY_PAGE_SIZE }),
+                dataPromise: getItems({ page, pageSize: INVENTORY_PAGE_SIZE }),
               };
             },
+          },
+          {
+            path: "inventory/:id",
+            lazy: async () => {
+              const { default: InventoryItem } =
+                await import("../pages/InventoryItem/InventoryItem");
+              return { Component: InventoryItem };
+            },
+            loader: ({ params }) => ({
+              itemPromise: getItemById(params.id),
+            }),
           },
           {
             path: "add",
