@@ -1,12 +1,10 @@
 import { Await, useLoaderData, useParams } from "react-router-dom";
 import styles from "./InventoryItem.module.css";
 import PageLayout from "../../layouts/PageLayout/PageLayout";
-import { useState } from "react";
-import { Suspense } from "react";
+import { useState, Suspense } from "react";
 
 export default function InventoryItem() {
   const { itemPromise } = useLoaderData();
-  console.log(itemPromise);
   const { id } = useParams();
 
   const [editableItem, setEditableItem] = useState(null);
