@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import StatusBadge from "../StatusBadge/StatusBadge";
+import Badge from "../Badge/Badge";
 import styles from "./InventoryTable.module.css";
 
 export default function InventoryTable({ items }) {
@@ -24,7 +24,7 @@ export default function InventoryTable({ items }) {
               <td>{artisan}</td>
               <td className={styles.price}>{price} €</td>
               <td>
-                <StatusBadge>{state}</StatusBadge>
+                <Badge>{state}</Badge>
               </td>
               <td>
                 <Link className={styles.actionLink} to={`/inventory/${id}`}>

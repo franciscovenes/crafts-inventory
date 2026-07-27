@@ -1,8 +1,7 @@
 import { Link, useSearchParams } from "react-router-dom";
 import styles from "./Pagination.module.css";
-import { getPager } from "./paginationUtils";
+import { getPager, createPageLink } from "./paginationUtils";
 import { Fragment } from "react";
-import { createPageLink } from "./paginationUtils";
 
 export default function Pagination({ total, pageSize }) {
   const totalPages = Math.ceil(total / pageSize);

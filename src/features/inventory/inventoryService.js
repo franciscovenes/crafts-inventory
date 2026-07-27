@@ -75,7 +75,7 @@ export async function getItemById(id) {
       states(name),
       conditions(name),
       item_colors(
-        colors(name)
+        colors(*)
       )
       `,
     )
@@ -96,6 +96,6 @@ export async function getItemById(id) {
     artisan: artisans.name,
     state: states.name,
     condition: conditions.name,
-    colors: item_colors.map(({ colors }) => colors.name),
+    colors: item_colors.map(({ colors }) => colors),
   };
 }
