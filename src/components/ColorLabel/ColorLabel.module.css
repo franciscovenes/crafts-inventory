@@ -1,0 +1,14 @@
+.container {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.colorSwatch {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--color);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 10%);
+}

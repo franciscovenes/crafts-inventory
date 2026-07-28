@@ -1,0 +1,6 @@
+export const INVENTORY_STATE = {
+  IN_STOCK: 1,
+  SOLD: 2,
+  RESERVED: 3,
+  BEING_RESTORED: 4,
+};

@@ -1,0 +1,47 @@
+.form {
+  max-width: 64rem;
+}
+.form label {
+  display: block;
+}
+
+.form > input,
+.form > select {
+  display: block;
+  width: 100%;
+}
+
+.form > :last-child {
+  margin-block-end: 0;
+}
+
+.colorsFieldset {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: var(--space-md);
+  row-gap: var(--space-sm);
+}
+
+.form .colorOption {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (min-width: 48rem) {
+  .colorsFieldset {
+    grid-template-columns: repeat(3, max-content) 1fr;
+  }
+}
