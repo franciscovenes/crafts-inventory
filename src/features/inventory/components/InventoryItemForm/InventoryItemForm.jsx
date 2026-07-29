@@ -3,8 +3,13 @@ import itemFields from "../../styles/ItemFields.module.css";
 import ColorLabel from "../../../../components/ColorLabel/ColorLabel";
 import { INVENTORY_STATE } from "../../constants/constants";
 
-export default function InventoryItemForm({ item, setItem, masterData }) {
-  const {
+export default function InventoryItemForm({
+  item,
+  setItem,
+  masterData,
+  onSubmit,
+}) {
+  /*   const {
     price,
     length_cm,
     width_cm,
@@ -17,7 +22,7 @@ export default function InventoryItemForm({ item, setItem, masterData }) {
     condition_id,
     colors: selectedColors,
   } = item;
-  console.log("Item: ", item);
+  console.log("Item: ", item); */
   /* console.log("model_id: ", model_id);
   console.log("type_id: ", type_id);
   console.log("artisan_id: ", artisan_id);
@@ -39,11 +44,6 @@ export default function InventoryItemForm({ item, setItem, masterData }) {
     conditions,
     colors: masterColors,
   } = masterData;
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    console.log("Submit clicked!");
-  }
 
   function handleFieldChange(event) {
     const { name, type, value } = event.target;
@@ -98,11 +98,10 @@ export default function InventoryItemForm({ item, setItem, masterData }) {
     <form
       className={`${styles.form} ${itemFields.layout}`}
       id="inventory-form"
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
       autoComplete="off"
     >
       {/* Model */}
-
       <label className={itemFields.label} htmlFor="model">
         Model
       </label>
@@ -121,7 +120,6 @@ export default function InventoryItemForm({ item, setItem, masterData }) {
       </select>
 
       {/* Type */}
-
       <label className={itemFields.label} htmlFor="type">
         Type
       </label>
@@ -140,7 +138,6 @@ export default function InventoryItemForm({ item, setItem, masterData }) {
       </select>
 
       {/* Artisan */}
-
       <label className={itemFields.label} htmlFor="artisan">
         Artisan
       </label>
@@ -179,7 +176,6 @@ export default function InventoryItemForm({ item, setItem, masterData }) {
       </fieldset>
 
       {/* Condition */}
-
       <label className={itemFields.label} htmlFor="condition">
         Condition
       </label>
@@ -198,7 +194,6 @@ export default function InventoryItemForm({ item, setItem, masterData }) {
       </select>
 
       {/* State */}
-
       <label className={itemFields.label} htmlFor="state">
         State
       </label>
@@ -217,7 +212,6 @@ export default function InventoryItemForm({ item, setItem, masterData }) {
       </select>
 
       {/* Price */}
-
       <label className={itemFields.label} htmlFor="price">
         Price
       </label>
@@ -233,7 +227,6 @@ export default function InventoryItemForm({ item, setItem, masterData }) {
       />
 
       {/* Dimensions */}
-
       <label className={itemFields.label}>Dimensions</label>
       <fieldset className={itemFields.fieldValue}>
         <legend className={styles.visuallyHidden}>Dimensions</legend>
@@ -272,7 +265,6 @@ export default function InventoryItemForm({ item, setItem, masterData }) {
       </fieldset>
 
       {/* Production Time */}
-
       <label className={itemFields.label} htmlFor="production_hours">
         Production Time
       </label>
@@ -287,7 +279,7 @@ export default function InventoryItemForm({ item, setItem, masterData }) {
         className={itemFields.fieldValue}
       />
 
-      {/* Location - only when state_id = 1 (In stock) OR  state_id = 4 (Being restored) */}
+      {/* Location */}
       {(item.state_id === INVENTORY_STATE.IN_STOCK ||
         item.state_id === INVENTORY_STATE.BEING_RESTORED) && (
         <>

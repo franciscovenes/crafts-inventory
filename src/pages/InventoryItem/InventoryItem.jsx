@@ -1,28 +1,49 @@
 import { Await, useLoaderData, useParams } from "react-router-dom";
-import styles from "./InventoryItem.module.css";
+// import styles from "./InventoryItem.module.css";
 import PageLayout from "../../layouts/PageLayout/PageLayout";
 import { useState, Suspense } from "react";
 import InventoryItemDetails from "../../features/inventory/components/InventoryItemDetails/InventoryItemDetails";
-import InventoryItemForm from "../../features/inventory/components/InventoryItemForm/InventoryItemForm";
+import { Form } from "lucide-react";
+import ActionBtn from "../../components/ActionBtn/ActionBtn";
+import { ACTION_BTN_VARIANT } from "../../components/ActionBtn/constants";
+import EditControls from "../../features/inventory/components/EditControls/EditControls";
+import ItemForm from "../../features/inventory/components/ItemForm/ItemForm";
 
 export default function InventoryItem() {
   const { itemPromise, masterDataPromise } = useLoaderData();
   const { id } = useParams();
-
-  const [draftItem, setDraftItem] = useState(null);
+  const emptyItem = {
+    model_id: null,
+    type_id: null,
+    artisan_id: null,
+    colors: [],
+    condition_id: null,
+    state_id: null,
+    price: null,
+    length_cm: null,
+    width_cm: null,
+    production_hours: null,
+    location: null,
+  };
+  const [draftItem, setDraftItem] = useState(emptyItem);
   const [isEditing, setIsEditing] = useState(false);
 
   function handleStartEdit(item) {
-    setIsEditing((prevState) => {
-      setIsEditing(true);
-      setDraftItem(structuredClone(item));
-    });
+    setIsEditing(true);
+    setDraftItem(structuredClone(item));
   }
 
   function handleCancelEdit() {
     setIsEditing(false);
-    setDraftItem(null);
+    setDraftItem(emptyItem);
   }
+
+  function handleUpdateItem(validatedData) {
+    console.log("Save clicked!");
+    console.log("Validated data: ", validatedData);
+  }
+
+  console.log("Draft Item: ", draftItem);
 
   return (
     <PageLayout title={`Item ${id}`}>
@@ -30,28 +51,39 @@ export default function InventoryItem() {
         <Await resolve={itemPromise}>
           {(item) =>
             isEditing ? (
-              <Await resolve={masterDataPromise}>
-                {(masterData) => (
-                  <>
-                    <button type="submit" form="inventory-form">
-                      Update Item
-                    </button>
-                    <button type="button" onClick={handleCancelEdit}>
-                      Cancel
-                    </button>
-                    <InventoryItemForm
-                      item={draftItem}
-                      setItem={setDraftItem}
-                      masterData={masterData}
-                    />
-                  </>
-                )}
-              </Await>
+              <>
+                <EditControls
+                  formId="inventory-form"
+                  onCancel={handleCancelEdit}
+                />
+                <Suspense fallback={<p>Loading form...</p>}>
+                  <Await resolve={masterDataPromise}>
+                    {(masterData) => (
+                      <ItemForm
+                        item={draftItem}
+                        setItem={setDraftItem}
+                        masterData={masterData}
+                        onSave={handleUpdateItem}
+                        formId="inventory-form"
+                      />
+                    )}
+                  </Await>
+                </Suspense>
+                <EditControls
+                  formId="inventory-form"
+                  onCancel={handleCancelEdit}
+                  mobile
+                />
+              </>
             ) : (
               <>
-                <button type="button" onClick={() => handleStartEdit(item)}>
+                <ActionBtn
+                  onClick={() => handleStartEdit(item)}
+                  variant={ACTION_BTN_VARIANT.SECONDARY}
+                >
+                  <Form />
                   Edit
-                </button>
+                </ActionBtn>
                 <InventoryItemDetails item={item} />
               </>
             )
@@ -60,17 +92,4 @@ export default function InventoryItem() {
       </Suspense>
     </PageLayout>
   );
-}
-
-{
-  /* <>
-              <button type="button" onClick={() => handleEditClick(item)}>
-                {isEditing ? "Close edit" : "Edit item"}
-              </button>
-              {isEditing ? (
-                <InventoryItemForm item={draftItem} />
-              ) : (
-                <InventoryItemDetails item={item} />
-              )}
-            </> */
 }

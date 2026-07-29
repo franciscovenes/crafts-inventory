@@ -19,6 +19,7 @@ const INVENTORY_PAGE_SIZE = 5;
 export const router = createBrowserRouter([
   {
     element: <AppLayout />,
+    HydrateFallback: () => <p>Loading...</p>,
     children: [
       {
         element: <DashboardLayout />,

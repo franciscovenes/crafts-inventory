@@ -1,0 +1,96 @@
+.form {
+  max-width: 64rem;
+}
+.form label {
+  display: block;
+}
+
+.form > :last-child {
+  margin-block-end: 0;
+}
+
+.colorsFieldset {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, max-content));
+  column-gap: var(--space-md);
+  row-gap: var(--space-sm);
+}
+
+.form .colorOption {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.fieldControl {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.fieldControl > input,
+.fieldControl > select {
+  flex: 1;
+  min-width: 0;
+}
+
+.dimension {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.dimension label,
+.dimensionError {
+  flex-basis: 100%;
+}
+
+.dimension input {
+  flex: 1;
+}
+
+@media (min-width: 48rem) {
+  .formLabel {
+    align-self: start;
+  }
+
+  .dimension {
+    display: grid;
+    grid-template-columns: 6rem 1fr max-content;
+    grid-template-areas:
+      "label input unit"
+      ".     error error";
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .dimension label {
+    grid-area: label;
+  }
+
+  .dimension input {
+    grid-area: input;
+  }
+
+  .dimension span {
+    grid-area: unit;
+  }
+
+  .dimensionError {
+    grid-area: error;
+  }
+}

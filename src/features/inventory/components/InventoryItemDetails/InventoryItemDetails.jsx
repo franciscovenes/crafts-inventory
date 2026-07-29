@@ -19,6 +19,8 @@ export default function InventoryItemDetails({ item }) {
     location,
   } = item;
 
+  console.log("Item: ", item);
+
   return (
     <dl className={`${styles.details} ${itemFields.layout}`}>
       <dt className={itemFields.label}>Model</dt>
@@ -46,7 +48,7 @@ export default function InventoryItemDetails({ item }) {
         <Badge>{state}</Badge>
       </dd>
       <dt className={itemFields.label}>Price</dt>
-      <dd className={`$styles.price} ${itemFields.fieldValue}`}>
+      <dd className={`${styles.price} ${itemFields.fieldValue}`}>
         {formatCurrency(price)}
       </dd>
       <dt className={itemFields.label}>Dimensions</dt>
