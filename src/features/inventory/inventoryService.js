@@ -1,5 +1,7 @@
 import { supabase } from "../../lib/supabase";
 
+// Get items in the database, with pagination
+
 export async function getItems({ limit, page, pageSize } = {}) {
   let query = supabase
     .from("items")
@@ -51,6 +53,8 @@ export async function getItems({ limit, page, pageSize } = {}) {
   return { items, total };
 }
 
+// Get item details by id
+
 export async function getItemById(id) {
   const { data, error } = await supabase
     .from("items")
@@ -75,7 +79,7 @@ export async function getItemById(id) {
       states(name),
       conditions(name),
       item_colors(
-        colors(name)
+        colors(*)
       )
       `,
     )
@@ -96,6 +100,61 @@ export async function getItemById(id) {
     artisan: artisans.name,
     state: states.name,
     condition: conditions.name,
-    colors: item_colors.map(({ colors }) => colors.name),
+    colors: item_colors.map(({ colors }) => colors),
   };
+}
+
+// Get all rows from a specified table
+
+async function getAll(table, select = "*", orderBy = "name") {
+  const { data, error } = await supabase
+    .from(table)
+    .select(select)
+    .order(orderBy);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+// Get master data fucnctions
+
+export async function getModels() {
+  return getAll("models");
+}
+export async function getTypes() {
+  return getAll("types");
+}
+export async function getArtisans() {
+  return getAll("artisans");
+}
+export async function getStates() {
+  return getAll("states");
+}
+export async function getConditions() {
+  return getAll("conditions");
+}
+
+export async function getColors() {
+  return getAll("colors");
+}
+
+// Update item by id
+
+export async function updateItemById(id, validatedData) {
+  const { colors, ...itemData } = validatedData;
+
+  const { error } = await supabase.rpc("update_item", {
+    p_item_id: id,
+    p_item: {
+      ...itemData,
+      color_ids: colors.map((color) => color.id),
+    },
+  });
+
+  if (error) {
+    throw error;
+  }
 }

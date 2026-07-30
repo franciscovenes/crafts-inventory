@@ -2,13 +2,24 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
 import AppLayout from "../layouts/AppLayout/AppLayout";
-import { getItems, getItemById } from "../features/inventory/inventoryService";
+import {
+  getItems,
+  getItemById,
+  getModels,
+  getTypes,
+  getArtisans,
+  getStates,
+  getConditions,
+  getColors,
+} from "../features/inventory/inventoryService";
+import { IoLogoModelS } from "react-icons/io";
 
 const INVENTORY_PAGE_SIZE = 5;
 
 export const router = createBrowserRouter([
   {
     element: <AppLayout />,
+    HydrateFallback: () => <p>Loading...</p>,
     children: [
       {
         element: <DashboardLayout />,
@@ -46,6 +57,23 @@ export const router = createBrowserRouter([
             },
             loader: ({ params }) => ({
               itemPromise: getItemById(params.id),
+              masterDataPromise: Promise.all([
+                getModels(),
+                getTypes(),
+                getArtisans(),
+                getStates(),
+                getConditions(),
+                getColors(),
+              ]).then(
+                ([models, types, artisans, states, conditions, colors]) => ({
+                  models,
+                  types,
+                  artisans,
+                  states,
+                  conditions,
+                  colors,
+                }),
+              ),
             }),
           },
           {

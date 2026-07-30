@@ -1,0 +1,29 @@
+.layout {
+  display: block;
+  margin: 0;
+}
+
+.label {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+  margin-block-end: var(--space-xs);
+}
+
+.fieldValue {
+  margin-block-end: var(--space-md);
+}
+
+@media (min-width: 48rem) {
+  .layout {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: var(--space-lg);
+    row-gap: var(--space-md);
+    align-items: center;
+  }
+
+  .fieldValue,
+  .label {
+    margin: 0;
+  }
+}

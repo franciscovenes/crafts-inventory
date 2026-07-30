@@ -55,18 +55,18 @@ VALUES
 -- ==========================
 -- COLORS
 -- ==========================
-INSERT INTO colors (name)
+INSERT INTO colors (name, hex)
 VALUES
-    ('Gold'),
-    ('Silver'),
-    ('Copper'),
-    ('Black'),
-    ('White'),
-    ('Blue'),
-    ('Green'),
-    ('Red'),
-    ('Purple'),
-    ('Turquoise');
+    ('Gold', '#D4AF37'),
+    ('Silver', '#C0C0C0'),
+    ('Copper', '#B87333'),
+    ('Black', '#000000'),
+    ('White', '#FFFFFF'),
+    ('Blue', '#0000FF'),
+    ('Green', '#008000'),
+    ('Red', '#FF0000'),
+    ('Purple', '#800080'),
+    ('Turquoise', '#40E0D0');
 
 -- ==========================
 -- ITEMS
@@ -85,7 +85,6 @@ INSERT INTO items (
     location,
     created_at
 ) 
-VALUES 
 VALUES 
 (1, 1, 3, 1, 1, 450.00, 2.20, 2.00, 14.50, 'Main workshop', '2026-01-12 09:30:00+00'), 
 (2, 2, 1, 1, 1, 780.00, 18.50, 1.50, 22.75, 'London gallery', '2026-02-03 14:15:00+00'), 

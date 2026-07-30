@@ -11,16 +11,14 @@ import {
 // import { AuthenticationContext } from "../../features/auth/AuthProvider";
 import { useCurrentUser } from "../../features/auth/useCurrentUser";
 import PageLayout from "../../layouts/PageLayout/PageLayout.jsx";
-import InventoryTable from "../../features/inventory/InventoryList/InventoryTable.jsx";
-import InventoryCards from "../../features/inventory/InventoryList/InventoryCards.jsx";
+import InventoryTable from "../../features/inventory/components/InventoryTable/InventoryTable.jsx";
+import InventoryCards from "../../features/inventory/components/InventoryCards/InventoryCards.jsx";
 
 export default function Home() {
   // const { currentUser } = useContext(AuthenticationContext);
   const currentUser = useCurrentUser();
 
   const { recentItemsPromise } = useLoaderData();
-
-  console.log(recentItemsPromise);
 
   return (
     <PageLayout title="Dashboard">

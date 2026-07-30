@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+@media (min-width: 48rem) {
+  .mobileOnly {
+    display: none;
+  }
+}

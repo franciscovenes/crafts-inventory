@@ -1,0 +1,23 @@
+.details {
+  margin: 0;
+}
+
+.details dd {
+  margin-inline-start: 0;
+}
+
+.details > :last-child {
+  margin-block-end: 0;
+}
+
+.colors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.price {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  font-size: var(--font-size-lg);
+}

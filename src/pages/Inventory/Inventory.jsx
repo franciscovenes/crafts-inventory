@@ -1,10 +1,10 @@
 import { Await, useLoaderData, useNavigation } from "react-router-dom";
 import styles from "./Inventory.module.css";
 import PageLayout from "../../layouts/PageLayout/PageLayout";
-import InventoryTable from "../../features/inventory/InventoryList/InventoryTable";
+import InventoryTable from "../../features/inventory/components/InventoryTable/InventoryTable";
 import { Suspense } from "react";
-import InventoryCards from "../../features/inventory/InventoryList/InventoryCards";
-import Pagination from "../../features/inventory/Pagination/Pagination";
+import InventoryCards from "../../features/inventory/components/InventoryCards/InventoryCards";
+import Pagination from "../../features/inventory/components/Pagination/Pagination";
 export default function Inventory() {
   const { pageSize, dataPromise } = useLoaderData();
 

@@ -1,4 +1,4 @@
-import StatusBadge from "../StatusBadge/StatusBadge";
+import Badge from "../Badge/Badge";
 import styles from "./InventoryCards.module.css";
 import { Link } from "react-router-dom";
 
@@ -13,7 +13,7 @@ export default function InventoryCards({ items }) {
             <p className={styles.meta}>{artisan}</p>
             <p className={styles.price}>{price} €</p>
             <div className={styles.cardFooter}>
-              <StatusBadge>{state}</StatusBadge>
+              <Badge>{state}</Badge>
               <Link to={`/inventory/${id}`}>View item →</Link>
             </div>
           </article>

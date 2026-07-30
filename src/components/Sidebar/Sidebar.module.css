@@ -36,7 +36,6 @@
 .mainMenu {
   display: flex;
   flex-direction: column;
-  /* gap: var(--space-xs); */
   margin-top: var(--space-lg);
 }
 
