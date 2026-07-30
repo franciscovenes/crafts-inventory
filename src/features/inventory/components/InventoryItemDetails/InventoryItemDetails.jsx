@@ -19,7 +19,7 @@ export default function InventoryItemDetails({ item }) {
     location,
   } = item;
 
-  console.log("Item: ", item);
+  // console.log("Item: ", item);
 
   return (
     <dl className={`${styles.details} ${itemFields.layout}`}>
@@ -59,8 +59,8 @@ export default function InventoryItemDetails({ item }) {
       <dd className={itemFields.fieldValue}>{production_hours} hours</dd>
       {location && (
         <>
-          <dt>Location</dt>
-          <dd>{location}</dd>
+          <dt className={itemFields.label}>Location</dt>
+          <dd className={itemFields.fieldValue}>{location}</dd>
         </>
       )}
     </dl>

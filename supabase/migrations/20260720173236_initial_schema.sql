@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS item_colors (
     CONSTRAINT fk_item
         FOREIGN KEY(item_id)
         REFERENCES items(id)
-        ON DELETE RESTRICT,
+        ON DELETE CASCADE,
 
     CONSTRAINT fk_color
         FOREIGN KEY(color_id)

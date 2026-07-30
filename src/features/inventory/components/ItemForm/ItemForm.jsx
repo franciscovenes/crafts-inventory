@@ -39,7 +39,7 @@ export default function ItemForm({
 
   const [zodErrors, setZodErrors] = useState(null);
 
-  console.log("Zod Errors: ", zodErrors);
+  // console.log("Zod Errors: ", zodErrors);
 
   const handleSubmit = (event) => {
     console.log("Handle Submit clicked!");
@@ -113,6 +113,7 @@ export default function ItemForm({
       id={formId}
       onSubmit={handleSubmit}
       autoComplete="off"
+      noValidate
     >
       {/* Model */}
       <label
@@ -279,7 +280,9 @@ export default function ItemForm({
       <label className={`${itemFields.label} ${styles.formLabel}`}>
         Dimensions
       </label>
-      <fieldset className={itemFields.fieldValue}>
+      <fieldset
+        className={`${itemFields.fieldValue} ${styles.dimensionsFieldset}`}
+      >
         <legend className={styles.visuallyHidden}>Dimensions</legend>
         <div className={styles.dimension}>
           <label className={itemFields.label} htmlFor="length_cm">

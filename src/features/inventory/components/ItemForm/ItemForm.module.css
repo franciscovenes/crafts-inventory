@@ -1,5 +1,5 @@
 .form {
-  max-width: 64rem;
+  max-width: 50rem;
 }
 .form label {
   display: block;
@@ -47,6 +47,15 @@
   min-width: 0;
 }
 
+.dimensionsFieldset {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
 .dimension {
   display: flex;
   flex-wrap: wrap;
@@ -66,6 +75,17 @@
 @media (min-width: 48rem) {
   .formLabel {
     align-self: start;
+  }
+
+  .fieldControl > select,
+  .fieldControl > input[type="number"] {
+    flex: 0 1 auto;
+  }
+
+  .dimensionsFieldset,
+  .fieldControl > select,
+  .fieldControl > input[type="number"] {
+    width: clamp(12rem, 60%, 30rem);
   }
 
   .dimension {

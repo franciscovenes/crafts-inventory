@@ -1,0 +1,12 @@
+.content {
+  animation: reveal 200ms ease-out;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

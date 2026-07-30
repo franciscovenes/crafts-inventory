@@ -16,8 +16,6 @@ GRANT SELECT ON TABLE public.states TO anon;
 GRANT SELECT ON TABLE public.colors TO anon;
 GRANT SELECT ON TABLE public.item_colors TO anon;
 
-
-
 CREATE POLICY "Allow anon read items"
 ON public.items
 FOR SELECT

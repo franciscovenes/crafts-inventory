@@ -12,7 +12,7 @@ export default function Sidebar({ className, isSidebarOpen, onClose }) {
       <button type="button" className={styles.menuCloseBtn} onClick={onClose}>
         <X />
       </button>
-      <nav className={styles.mainMenu}>
+      <nav className={styles.mainMenu} onClick={onClose}>
         {navigation.map(({ to, label, end }) => (
           <NavLink
             key={to}

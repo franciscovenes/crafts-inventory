@@ -1,5 +1,7 @@
 import { supabase } from "../../lib/supabase";
 
+// Get items in the database, with pagination
+
 export async function getItems({ limit, page, pageSize } = {}) {
   let query = supabase
     .from("items")
@@ -51,6 +53,8 @@ export async function getItems({ limit, page, pageSize } = {}) {
   return { items, total };
 }
 
+// Get item details by id
+
 export async function getItemById(id) {
   const { data, error } = await supabase
     .from("items")
@@ -100,6 +104,8 @@ export async function getItemById(id) {
   };
 }
 
+// Get all rows from a specified table
+
 async function getAll(table, select = "*", orderBy = "name") {
   const { data, error } = await supabase
     .from(table)
@@ -112,6 +118,8 @@ async function getAll(table, select = "*", orderBy = "name") {
 
   return data;
 }
+
+// Get master data fucnctions
 
 export async function getModels() {
   return getAll("models");
@@ -131,4 +139,22 @@ export async function getConditions() {
 
 export async function getColors() {
   return getAll("colors");
+}
+
+// Update item by id
+
+export async function updateItemById(id, validatedData) {
+  const { colors, ...itemData } = validatedData;
+
+  const { error } = await supabase.rpc("update_item", {
+    p_item_id: id,
+    p_item: {
+      ...itemData,
+      color_ids: colors.map((color) => color.id),
+    },
+  });
+
+  if (error) {
+    throw error;
+  }
 }
