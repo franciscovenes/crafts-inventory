@@ -21,16 +21,18 @@ export const itemSchema = z.object({
   artisan_id: idSchema,
   state_id: idSchema,
   condition_id: idSchema,
-  colors: z.array(
-    z.object({
-      id: z.number().int().positive(),
-      hex: z
-        .string()
-        .trim()
-        .regex(/^#[0-9A-Fa-f]{6}$/),
-      name: z.string().trim().min(1),
-    }),
-  ),
+  colors: z
+    .array(
+      z.object({
+        id: z.number().int().positive(),
+        hex: z
+          .string()
+          .trim()
+          .regex(/^#[0-9A-Fa-f]{6}$/),
+        name: z.string().trim().min(1),
+      }),
+    )
+    .min(1, "Select at least one color."),
   price: requiredNumber("Price")
     .nonnegative({ error: "Price cannot be negative." })
     .max(99_999_999.99, { error: "Max price allowed is 99 999 999.99 €" })

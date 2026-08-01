@@ -104,7 +104,7 @@ export async function getItemById(id) {
   };
 }
 
-// Get all rows from a specified table
+// Get all rows from a specified master data table
 
 async function getAll(table, select = "*", orderBy = "name") {
   const { data, error } = await supabase
@@ -150,11 +150,29 @@ export async function updateItemById(id, validatedData) {
     p_item_id: id,
     p_item: {
       ...itemData,
-      color_ids: colors.map((color) => color.id),
+      color_ids: colors.map((color) => color.id) ?? [],
     },
   });
 
   if (error) {
     throw error;
   }
+}
+
+// Insert new item in the database
+
+export async function insertItem(validatedData) {
+  const { colors, ...itemData } = validatedData;
+  const { data: insertedId, error } = await supabase.rpc("create_item", {
+    p_item: {
+      ...itemData,
+      color_ids: colors.map((color) => color.id) ?? [],
+    },
+  });
+
+  if (error) {
+    throw error;
+  }
+
+  return insertedId;
 }

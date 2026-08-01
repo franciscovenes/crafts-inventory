@@ -9,6 +9,10 @@
   transition: color 150ms ease;
 }
 
+.container[hidden] {
+  display: none;
+}
+
 .container svg {
   width: 1em;
   height: 1em;

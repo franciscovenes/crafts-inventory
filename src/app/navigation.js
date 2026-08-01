@@ -5,7 +5,7 @@ export const navigation = [
     end: true,
   },
   {
-    to: "/add",
-    label: "Add an item",
+    to: "/create",
+    label: "Create item",
   },
 ];

@@ -13,6 +13,7 @@ import {
   getColors,
 } from "../features/inventory/inventoryService";
 import { IoLogoModelS } from "react-icons/io";
+import { getMasterDataPromise } from "../features/inventory/inventoryLoaders";
 
 const INVENTORY_PAGE_SIZE = 5;
 
@@ -57,33 +58,21 @@ export const router = createBrowserRouter([
             },
             loader: ({ params }) => ({
               itemPromise: getItemById(params.id),
-              masterDataPromise: Promise.all([
-                getModels(),
-                getTypes(),
-                getArtisans(),
-                getStates(),
-                getConditions(),
-                getColors(),
-              ]).then(
-                ([models, types, artisans, states, conditions, colors]) => ({
-                  models,
-                  types,
-                  artisans,
-                  states,
-                  conditions,
-                  colors,
-                }),
-              ),
+              masterDataPromise: getMasterDataPromise(),
             }),
           },
           {
-            path: "add",
+            path: "create",
             lazy: async () => {
-              const { default: Add } = await import("../pages/Add");
+              const { default: CreateItem } =
+                await import("../pages/CreateItem/CreateItem");
               return {
-                Component: Add,
+                Component: CreateItem,
               };
             },
+            loader: async () => ({
+              masterData: await getMasterDataPromise(),
+            }),
           },
         ],
       },

@@ -3,7 +3,7 @@ export default function Footer() {
   return (
     <footer className={styles.container}>
       <p>
-        Warmi Muyu · Created by{" "}
+        Crafts Inventory · Created by{" "}
         <a
           href="https://panchos-portfolio.netlify.app"
           target="_blank"

@@ -14,6 +14,7 @@
   grid-template-columns: repeat(auto-fit, minmax(10rem, max-content));
   column-gap: var(--space-md);
   row-gap: var(--space-sm);
+  flex: 1;
 }
 
 .form .colorOption {
@@ -36,7 +37,7 @@
 
 .fieldControl {
   display: flex;
-  gap: var(--space-sm);
+  gap: var(--space-xs);
   align-items: center;
   flex-wrap: wrap;
 }
@@ -95,7 +96,8 @@
       "label input unit"
       ".     error error";
     align-items: center;
-    gap: var(--space-sm);
+    column-gap: var(--space-sm);
+    row-gap: var(--space-xs);
   }
 
   .dimension label {

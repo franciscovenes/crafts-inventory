@@ -2,5 +2,4 @@
   flex-basis: 100%;
   color: var(--color-error);
   font-size: var(--font-size-sm);
-  margin-block-start: -0.5em;
 }

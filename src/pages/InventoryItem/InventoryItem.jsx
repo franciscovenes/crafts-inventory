@@ -1,6 +1,7 @@
 import {
   Await,
   useLoaderData,
+  useLocation,
   useParams,
   useRevalidator,
 } from "react-router-dom";
@@ -15,32 +16,27 @@ import EditControls from "../../features/inventory/components/EditControls/EditC
 import ItemForm from "../../features/inventory/components/ItemForm/ItemForm";
 import { updateItemById } from "../../features/inventory/inventoryService";
 import StatusMessage from "../../components/StatusMessage/StatusMessage";
+import { SavePen } from "lucide-react";
+import { X } from "lucide-react";
+import { createEmptyItem } from "../../features/inventory/inventoryUtils";
 
 export default function InventoryItem() {
   const { itemPromise, masterDataPromise } = useLoaderData();
   const revalidator = useRevalidator();
+  const location = useLocation();
   const { id } = useParams();
-  const emptyItem = {
-    model_id: null,
-    type_id: null,
-    artisan_id: null,
-    colors: [],
-    condition_id: null,
-    state_id: null,
-    price: null,
-    length_cm: null,
-    width_cm: null,
-    production_hours: null,
-    location: null,
-  };
+
+  const emptyItem = createEmptyItem();
+
   const [draftItem, setDraftItem] = useState(emptyItem);
   const [isEditing, setIsEditing] = useState(false);
 
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState(location.state?.message ?? null);
 
   const handleStartEdit = (item) => {
-    setIsEditing(true);
+    setMessage(null);
     setDraftItem(structuredClone(item));
+    setIsEditing(true);
   };
 
   const handleCancelEdit = () => {
@@ -81,21 +77,33 @@ export default function InventoryItem() {
                   {message.text}
                 </StatusMessage>
               )}
-              {isEditing ? (
-                <EditControls
-                  formId="inventory-form"
-                  onCancel={handleCancelEdit}
-                />
-              ) : (
+              <EditControls>
                 <ActionBtn
-                  onClick={() => handleStartEdit(item)}
-                  variant={ACTION_BTN_VARIANT.SECONDARY}
+                  hidden={isEditing}
+                  onClick={() => {
+                    handleStartEdit(item);
+                  }}
                 >
                   <Form />
                   Edit
                 </ActionBtn>
-              )}
-
+                <ActionBtn
+                  hidden={!isEditing}
+                  type="submit"
+                  form="inventory-form"
+                  variant={ACTION_BTN_VARIANT.PRIMARY}
+                >
+                  <SavePen />
+                  Update
+                </ActionBtn>
+                <ActionBtn
+                  hidden={!isEditing}
+                  onClick={handleCancelEdit}
+                  variant={ACTION_BTN_VARIANT.CANCEL}
+                >
+                  Cancel
+                </ActionBtn>
+              </EditControls>
               {/* Item content goes in here */}
               <div key={isEditing ? "edit" : "view"} className={styles.content}>
                 {isEditing ? (
@@ -116,14 +124,33 @@ export default function InventoryItem() {
                   <InventoryItemDetails item={item} />
                 )}
               </div>
-
-              {isEditing && (
-                <EditControls
-                  formId="inventory-form"
-                  onCancel={handleCancelEdit}
-                  mobile
-                />
-              )}
+              <EditControls mobile>
+                <ActionBtn
+                  hidden={isEditing}
+                  onClick={() => {
+                    handleStartEdit(item);
+                  }}
+                >
+                  <Form />
+                  Edit
+                </ActionBtn>
+                <ActionBtn
+                  hidden={!isEditing}
+                  type="submit"
+                  form="inventory-form"
+                  variant={ACTION_BTN_VARIANT.PRIMARY}
+                >
+                  <SavePen />
+                  Update
+                </ActionBtn>
+                <ActionBtn
+                  hidden={!isEditing}
+                  onClick={handleCancelEdit}
+                  variant={ACTION_BTN_VARIANT.CANCEL}
+                >
+                  Cancel
+                </ActionBtn>
+              </EditControls>
               {message && (
                 <StatusMessage variant={message.type} mobile>
                   {message.text}

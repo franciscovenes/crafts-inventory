@@ -39,8 +39,6 @@ export default function ItemForm({
 
   const [zodErrors, setZodErrors] = useState(null);
 
-  // console.log("Zod Errors: ", zodErrors);
-
   const handleSubmit = (event) => {
     console.log("Handle Submit clicked!");
     event.preventDefault();
@@ -187,7 +185,7 @@ export default function ItemForm({
       <label className={`${itemFields.label} ${styles.formLabel}`}>
         Colors
       </label>
-      <div className={itemFields.fieldValue}>
+      <div className={`${itemFields.fieldValue} ${styles.fieldControl}`}>
         <fieldset className={styles.colorsFieldset}>
           <legend className={styles.visuallyHidden}>Colors</legend>
 
