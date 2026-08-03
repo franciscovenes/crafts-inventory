@@ -5,8 +5,9 @@ import InventoryTable from "../../features/inventory/components/InventoryTable/I
 import { Suspense } from "react";
 import InventoryCards from "../../features/inventory/components/InventoryCards/InventoryCards";
 import Pagination from "../../features/inventory/components/Pagination/Pagination";
+import SearchItems from "../../features/inventory/components/SearchItems/SearchItems";
 export default function Inventory() {
-  const { pageSize, dataPromise } = useLoaderData();
+  const { pageSize, dataPromise, masterDataPromise } = useLoaderData();
 
   const navigation = useNavigation();
 
@@ -18,6 +19,9 @@ export default function Inventory() {
     <PageLayout title="Inventory">
       <section className={styles.section}>
         <Suspense fallback={<p>Loading...</p>}>
+          <Await resolve={masterDataPromise}>
+            {(masterData) => <SearchItems masterData={masterData} />}
+          </Await>
           <Await resolve={dataPromise}>
             {({ items, total }) => (
               <>

@@ -46,6 +46,7 @@ export const router = createBrowserRouter([
               return {
                 pageSize: INVENTORY_PAGE_SIZE,
                 dataPromise: getItems({ page, pageSize: INVENTORY_PAGE_SIZE }),
+                masterDataPromise: getMasterDataPromise(),
               };
             },
           },
