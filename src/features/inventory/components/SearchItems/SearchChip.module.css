@@ -1,0 +1,51 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  height: 1.5rem;
+  padding-inline: var(--space-xs);
+  font-size: var(--font-size-sm);
+  background-color: var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+}
+
+.chip > button {
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chip > button > svg {
+  width: var(--font-size-sm);
+  height: var(--font-size-sm);
+}
+
+.colorChip {
+  color: var(--chip-color);
+  background-color: color-mix(in srgb, var(--chip-color) 15%, white);
+}
+
+.lightColorChip {
+  background-color: color-mix(in srgb, var(--chip-color) 15%, white);
+}
+
+.removalHint {
+  animation: 300ms removeHint;
+}
+
+@keyframes removeHint {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
