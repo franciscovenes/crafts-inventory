@@ -17,7 +17,6 @@ export function findSuggestions(input, masterData, tokens) {
 
       for (let i = 0; i < words.length; i++) {
         const candidateSequence = words.slice(i).join(" ");
-        console.log(candidateSequence);
         if (
           candidateSequence.length > 1 &&
           ((words.length === 1 &&
