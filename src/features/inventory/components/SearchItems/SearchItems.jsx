@@ -7,34 +7,42 @@ import {
   prepareMasterData,
   insertMetadataToken,
   clipMetadataInput,
+  deserializeSearchState,
 } from "./searchItemsUtils";
 import SearchChip from "./SearchChip";
 import { findSuggestions } from "./suggestions/findSuggestions";
 import ColorLabel from "../../../../components/ColorLabel/ColorLabel";
+import { searchItems } from "./searchService";
+import { useSearchParams } from "react-router-dom";
 
 export default function SearchItems({ masterData }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const preparedMasterData = prepareMasterData(masterData);
 
-  const [searchState, setSearchState] = useState({
-    tokens: [],
-    currentInput: "",
+  const [searchState, setSearchState] = useState(() => {
+    const searchPayloadString = searchParams.get("search");
+
+    if (searchPayloadString !== null) {
+      const searchPayload = JSON.parse(searchPayloadString);
+      return deserializeSearchState(searchPayload, preparedMasterData);
+    }
+
+    return {
+      tokens: [],
+      currentInput: "",
+    };
   });
-  // console.log("Search state: ", searchState);
+
+  const { tokens: currentTokens, currentInput } = searchState;
 
   const [showRemovalHint, setShowRemovalHint] = useState(false);
-  // console.log("showRemovalHint: ", showRemovalHint);
 
   const [suggestions, setSuggestions] = useState([]);
-  console.log("Suggestions: ", suggestions);
 
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
 
   const inputRef = useRef(null);
-
-  const { tokens: currentTokens, currentInput } = searchState;
-
-  // console.log("Current Input: ", currentInput);
-  // console.log("Tokens: ", currentTokens);
 
   const handleCurrentInput = (event) => {
     const { value } = event.target;
@@ -51,8 +59,6 @@ export default function SearchItems({ masterData }) {
     );
 
     setSuggestions(suggestions);
-
-    // console.log("Suggestions: ", suggestions);
 
     if (shouldCommitInput(value)) {
       const { clippedInput, tokens } = parseCurrentInput(
@@ -119,11 +125,80 @@ export default function SearchItems({ masterData }) {
     inputRef.current?.focus();
   };
 
-  const handleSuggestionNavigation = (event) => {};
+  const handleSuggestionNavigation = (event) => {
+    if (event.key === "Enter" && suggestions.length > 0) {
+      event.preventDefault();
+      if (activeSuggestionIndex >= 0) {
+        handleSuggestionClick(suggestions[activeSuggestionIndex]);
+        setActiveSuggestionIndex(-1);
+      }
+      return;
+    }
+
+    if (event.key === "Escape" && suggestions.length > 0) {
+      setSuggestions([]);
+      setActiveSuggestionIndex(-1);
+      return;
+    }
+
+    if (suggestions.length === 0) return;
+
+    switch (event.key) {
+      case "ArrowDown":
+        event.preventDefault();
+        if (activeSuggestionIndex < suggestions.length - 1) {
+          setActiveSuggestionIndex((prev) => prev + 1);
+        }
+        break;
+      case "ArrowUp":
+        event.preventDefault();
+        if (activeSuggestionIndex > 0) {
+          setActiveSuggestionIndex((prev) => prev - 1);
+        }
+        break;
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const keywords = currentInput.split(/[\s,;]/).filter(Boolean);
+
+    const searchPayload = {
+      hardFilters: searchState.tokens.map(
+        ({ type, field, value, operator }) => ({
+          type,
+          field,
+          value,
+          ...(type === "primitive" && {
+            operator,
+          }),
+        }),
+      ),
+      keywords,
+    };
+
+    if (
+      searchPayload.keywords.length > 0 ||
+      searchPayload.hardFilters.length > 0
+    ) {
+      setSearchParams({
+        search: JSON.stringify(searchPayload),
+      });
+    } else {
+      setSearchParams({});
+    }
+  };
+
+  const handleSuggestionBlur = (event) => {
+    if (!event.currentTarget.contains(event.relatedTarget)) {
+      setSuggestions([]);
+    }
+  };
 
   return (
-    <div className={styles.container}>
-      <form className={styles.searchForm}>
+    <div className={styles.container} onBlur={handleSuggestionBlur}>
+      <form className={styles.searchForm} onSubmit={handleSubmit}>
         <div
           className={styles.searchBox}
           onClick={() => inputRef.current?.focus()}
@@ -159,12 +234,15 @@ export default function SearchItems({ masterData }) {
           `}
       >
         {suggestions.length > 0 &&
-          suggestions.map(({ field, value, candidateSequence }) => {
+          suggestions.map(({ field, value, candidateSequence }, index) => {
             const { name, hex } = value;
             return (
               <li key={`${field}-${name}`}>
                 <button
-                  className={styles.suggestionBtn}
+                  className={`
+                    ${styles.suggestionBtn} 
+                    ${index === activeSuggestionIndex ? styles.activeSuggestion : ""}
+                  `}
                   onClick={() =>
                     handleSuggestionClick({ field, value, candidateSequence })
                   }

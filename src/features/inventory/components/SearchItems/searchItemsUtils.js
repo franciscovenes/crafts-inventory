@@ -69,3 +69,37 @@ export function clipMetadataInput(input, start, length) {
 
   return input.replace(/\s{2,}/g, " ");
 }
+
+export function deserializeSearchState(searchPayload, preparedMasterData) {
+  const tokens = [];
+
+  searchPayload.hardFilters.forEach(({ type, field, value, operator }) => {
+    if (type === "masterData") {
+      const { hex, isLight } =
+        preparedMasterData.colors.find((color) => color.name === value) ?? {};
+      tokens.push({
+        id: crypto.randomUUID(),
+        type,
+        field,
+        value,
+        ...(field === "color" && {
+          hex,
+          isLight,
+        }),
+      });
+    } else if (type === "primitive") {
+      tokens.push({
+        id: crypto.randomUUID(),
+        type,
+        field,
+        operator,
+        value,
+      });
+    }
+  });
+
+  return {
+    tokens,
+    currentInput: searchPayload.keywords.join(" "),
+  };
+}

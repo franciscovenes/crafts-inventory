@@ -45,7 +45,9 @@ const fieldPattern = primitiveFieldAliases
 
 export const primitiveRegex = new RegExp(
   `\\b(?<field>${fieldPattern})` +
+    `\\s*` +
     `(?<operator>>=|<=|>|<|=)` +
+    `\\s*` +
     `(?<value>\\d+(?:\\.\\d+)?)`,
   "gi",
 );

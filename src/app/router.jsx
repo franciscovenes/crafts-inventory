@@ -14,6 +14,7 @@ import {
 } from "../features/inventory/inventoryService";
 import { IoLogoModelS } from "react-icons/io";
 import { getMasterDataPromise } from "../features/inventory/inventoryLoaders";
+import { searchItems } from "../features/inventory/components/SearchItems/searchService";
 
 const INVENTORY_PAGE_SIZE = 5;
 
@@ -42,12 +43,28 @@ export const router = createBrowserRouter([
             loader: ({ request }) => {
               const url = new URL(request.url);
               const page = Number(url.searchParams.get("page")) || 1;
+              const searchPayload = JSON.parse(url.searchParams.get("search"));
 
-              return {
-                pageSize: INVENTORY_PAGE_SIZE,
-                dataPromise: getItems({ page, pageSize: INVENTORY_PAGE_SIZE }),
-                masterDataPromise: getMasterDataPromise(),
-              };
+              if (searchPayload !== null) {
+                return {
+                  pageSize: INVENTORY_PAGE_SIZE,
+                  dataPromise: searchItems({
+                    searchPayload,
+                    page,
+                    pageSize: INVENTORY_PAGE_SIZE,
+                  }),
+                  masterDataPromise: getMasterDataPromise(),
+                };
+              } else {
+                return {
+                  pageSize: INVENTORY_PAGE_SIZE,
+                  dataPromise: getItems({
+                    page,
+                    pageSize: INVENTORY_PAGE_SIZE,
+                  }),
+                  masterDataPromise: getMasterDataPromise(),
+                };
+              }
             },
           },
           {

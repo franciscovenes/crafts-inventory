@@ -8,4 +8,8 @@ export const navigation = [
     to: "/create",
     label: "Create item",
   },
+  {
+    to: "/inventory",
+    label: "Inventory",
+  },
 ];

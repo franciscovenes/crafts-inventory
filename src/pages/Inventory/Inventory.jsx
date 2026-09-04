@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import InventoryCards from "../../features/inventory/components/InventoryCards/InventoryCards";
 import Pagination from "../../features/inventory/components/Pagination/Pagination";
 import SearchItems from "../../features/inventory/components/SearchItems/SearchItems";
+
 export default function Inventory() {
   const { pageSize, dataPromise, masterDataPromise } = useLoaderData();
 

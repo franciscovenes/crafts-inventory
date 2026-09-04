@@ -16,6 +16,9 @@ GRANT SELECT ON TABLE public.states TO anon;
 GRANT SELECT ON TABLE public.colors TO anon;
 GRANT SELECT ON TABLE public.item_colors TO anon;
 
+-- Replace the line below later with search_items having security definer rather than invoker for this view
+GRANT SELECT ON master_data_names TO anon;
+
 CREATE POLICY "Allow anon read items"
 ON public.items
 FOR SELECT

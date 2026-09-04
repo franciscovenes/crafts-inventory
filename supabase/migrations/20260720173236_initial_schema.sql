@@ -65,6 +65,8 @@ CREATE TABLE IF NOT EXISTS items (
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMPTZ,
 
+    search_vector tsvector,
+
     CONSTRAINT fk_model 
         FOREIGN KEY(model_id) 
         REFERENCES models(id) 
@@ -116,6 +118,19 @@ CREATE TABLE IF NOT EXISTS item_colors (
         REFERENCES colors(id)
         ON DELETE RESTRICT
 );
+
+CREATE OR REPLACE VIEW master_data_names AS
+SELECT name FROM models
+UNION
+SELECT name FROM types
+UNION
+SELECT name FROM artisans
+UNION
+SELECT name FROM conditions
+UNION
+SELECT name FROM states
+UNION
+SELECT name FROM colors;
 
 CREATE TABLE IF NOT EXISTS profiles (
     id UUID PRIMARY KEY,
