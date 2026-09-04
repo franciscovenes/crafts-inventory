@@ -19,7 +19,6 @@ export default function SearchItems({ masterData }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const preparedMasterData = prepareMasterData(masterData);
-
   const [searchState, setSearchState] = useState(() => {
     const searchPayloadString = searchParams.get("search");
 

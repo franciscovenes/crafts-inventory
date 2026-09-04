@@ -63,6 +63,7 @@ export function parsePrimitives(input, currentTokens) {
 }
 
 export function parseMasterData(input, masterData, currentTokens) {
+  console.log("Parse master data");
   // This is a dictionary-driven parser. Go through master data categories sequentially
   // Follow this order: Models, Types, Conditions, States, Colors
 
@@ -72,7 +73,6 @@ export function parseMasterData(input, masterData, currentTokens) {
   // Find explicit (category:name) patterns
 
   const matches = [...input.matchAll(masterDataFieldRegex)];
-  // console.log("Matches: ", matches);
 
   for (const match of matches) {
     const valueStart = match.index + match[0].length;

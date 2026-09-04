@@ -13,12 +13,18 @@ export function findSuggestions(input, masterData, tokens) {
     for (const categoryObject of masterData[categoryName]) {
       const { normalizedName, name } = categoryObject;
 
+      const normalizedNameWords = normalizedName.split(" ");
+
       for (let i = 0; i < words.length; i++) {
         const candidateSequence = words.slice(i).join(" ");
-
+        console.log(candidateSequence);
         if (
           candidateSequence.length > 1 &&
-          normalizedName.startsWith(candidateSequence) &&
+          ((words.length === 1 &&
+            normalizedNameWords.some((word) =>
+              word.startsWith(candidateSequence),
+            )) ||
+            normalizedName.startsWith(candidateSequence)) &&
           !tokenExists(tokens, field, name)
         ) {
           suggestions.push({
