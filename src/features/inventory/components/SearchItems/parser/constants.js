@@ -56,6 +56,7 @@ export const primitiveRegex = new RegExp(
 export const CATEGORY_PRECEDENCE = [
   "models",
   "types",
+  "artisans",
   "conditions",
   "states",
   "colors",
@@ -67,6 +68,7 @@ export const CATEGORY_TO_FIELD = {
   conditions: "condition",
   states: "state",
   colors: "color",
+  artisans: "artisan",
 };
 
 export const FIELD_TO_CATEGORY = Object.fromEntries(

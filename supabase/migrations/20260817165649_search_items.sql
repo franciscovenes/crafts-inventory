@@ -35,6 +35,7 @@ with
             when 'type' then types.name
             when 'condition' then conditions.name
             when 'state' then states.name
+            when 'artisan' then artisans.name
           end = hard_filters ->> 'value'
       )
   end as matches
@@ -47,6 +48,7 @@ from
   inner join types on types.id = items.type_id
   inner join states on states.id = items.state_id
   inner join conditions on conditions.id = items.condition_id
+  inner join artisans on artisans.id = items.artisan_id
   left join (
     select
       item_colors.item_id,
@@ -67,7 +69,8 @@ group by
   models.name,
   types.name,
   conditions.name,
-  states.name
+  states.name,
+  artisans.name
   ),
   masterdata_filtered_items as (
     select
