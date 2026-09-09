@@ -25,6 +25,6 @@ dist-ssr
 *.sln
 *.sw?
 
-todo.md
+readmes
 warmi-muyu-revised.code-workspace
 src/utils/utils.js.old

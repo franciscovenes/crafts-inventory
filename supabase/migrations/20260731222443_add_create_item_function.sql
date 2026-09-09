@@ -8,6 +8,14 @@ set search_path = public
 as $$
 declare v_item_id integer;
 begin
+    if not exists (
+        select 1
+        from profiles
+        where profiles.id = auth.uid() and profiles.active = true
+    ) then
+        raise exception 'Unauthorized item creation';  
+    end if;
+
     insert into items (
         model_id,
         type_id,
@@ -43,4 +51,4 @@ begin
 end;
 $$;
 
-GRANT EXECUTE ON FUNCTION create_item(jsonb) TO anon;
+GRANT EXECUTE ON FUNCTION create_item(jsonb) TO authenticated;

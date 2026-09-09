@@ -8,7 +8,13 @@ security definer
 set search_path = public
 as $$
 begin
-
+    if not exists (
+        select 1
+        from profiles
+        where profiles.id = auth.uid() and profiles.active = true
+    ) then
+        raise exception 'Unauthorized item update';  
+    end if;
 
     update items
     set
@@ -39,5 +45,5 @@ begin
 end;
 $$;
 
-GRANT EXECUTE ON FUNCTION update_item(integer, jsonb) TO anon;
+GRANT EXECUTE ON FUNCTION update_item(integer, jsonb) TO authenticated;
         

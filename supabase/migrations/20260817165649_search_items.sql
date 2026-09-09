@@ -7,8 +7,19 @@ create or replace function search_items (p_search_payload jsonb) returns table (
   price numeric,
   created_at timestamp with time zone,
   final_rank double precision
-) language plpgsql as $$
+)
+language plpgsql
+security definer
+set search_path = public
+as $$
 begin
+    if not exists (
+        select 1
+        from profiles
+        where profiles.id = auth.uid() and profiles.active = true
+    ) then
+        raise exception 'Unauthorized item search';  
+    end if;
 return query
 with
   input as (
@@ -286,5 +297,5 @@ order by
 end;
 $$;
 
-GRANT EXECUTE ON FUNCTION search_items(jsonb) TO anon;
+GRANT EXECUTE ON FUNCTION search_items(jsonb) TO authenticated;
         
