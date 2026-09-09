@@ -1,35 +1,29 @@
-import PropTypes from "prop-types";
-import { createContext, useEffect, useState } from "react";
-import { monitorAuth } from "../../api";
+import { createContext, useState, useEffect } from "react";
+import { getAuthMe, signInWithEmail } from "./authService";
+
 const AuthenticationContext = createContext();
 
 export default function AuthProvider({ children }) {
-  // State for currently authenticated user
   const [currentUser, setCurrentUser] = useState();
 
-  /* 
-  // Create listener for changes in firebase authentication and update currentUser state, if needed.
   useEffect(() => {
-    const unsubscribeAuth = monitorAuth(setCurrentUser);
-    return () => {
-      unsubscribeAuth;
-    };
+    async function signInUser() {
+      await signInWithEmail();
+    }
+    signInUser();
+
+    async function getUser() {
+      const result = await getAuthMe();
+      setCurrentUser(result);
+    }
+    getUser();
   }, []);
- */
+
+  console.log("Current User: ", currentUser);
 
   return (
-    <AuthenticationContext.Provider
-      value={{
-        currentUser,
-      }}
-    >
+    <AuthenticationContext value={currentUser}>
       {children}
-    </AuthenticationContext.Provider>
+    </AuthenticationContext>
   );
 }
-
-export { AuthenticationContext };
-
-AuthProvider.propTypes = {
-  children: PropTypes.node,
-};

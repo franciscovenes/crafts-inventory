@@ -26,5 +26,6 @@ dist-ssr
 *.sw?
 
 readmes
+old
 warmi-muyu-revised.code-workspace
 src/utils/utils.js.old

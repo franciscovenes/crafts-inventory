@@ -119,7 +119,9 @@ CREATE TABLE IF NOT EXISTS item_colors (
         ON DELETE RESTRICT
 );
 
-CREATE OR REPLACE VIEW master_data_names AS
+CREATE OR REPLACE VIEW master_data_names 
+WITH (security_invoker = true)
+AS
 SELECT name FROM models
 UNION
 SELECT name FROM types
@@ -137,6 +139,7 @@ CREATE TABLE IF NOT EXISTS profiles (
     role TEXT NOT NULL DEFAULT 'user'
         CHECK (role IN ('user', 'admin')),
     active BOOLEAN NOT NULL DEFAULT TRUE,
+    display_name TEXT CHECK (char_length(display_name) <= 100) NOT NULL,
 
     CONSTRAINT fk_profile_user
         FOREIGN KEY (id)

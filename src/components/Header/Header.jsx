@@ -1,6 +1,5 @@
 import { FaPowerOff, FaHome } from "react-icons/fa";
 import styles from "./Header.module.css";
-import { AuthenticationContext } from "../../features/auth/AuthProvider";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import { useCurrentUser } from "../../features/auth/useCurrentUser";
 import UserPanel from "../AccountPanel/AccountPanel";
