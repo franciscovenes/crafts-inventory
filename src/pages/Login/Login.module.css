@@ -1,0 +1,59 @@
+.container {
+  display: grid;
+  justify-items: center;
+  flex: 1;
+  row-gap: var(--space-xl);
+  grid-template-rows: 33% max-content auto;
+  padding: var(--space-xl);
+}
+
+.logo {
+  width: 40%;
+  align-self: end;
+  max-width: 200px;
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  font-family: "JetBrains Mono", monospace;
+  color: var(--color-text-muted);
+}
+
+.form {
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.passwordBox {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.passwordBox > button {
+  position: absolute;
+  width: fit-content;
+  display: flex;
+  right: var(--space-xs);
+}
+
+.passwordBox svg {
+  width: var(--font-size-lg);
+  height: var(--font-size-lg);
+  color: var(--color-text-muted);
+}
+
+.field input {
+  padding: var(--space-xs) var(--space-sm);
+}
+
+.passwordBox > input {
+  padding-inline-end: var(--font-size-xl);
+}
