@@ -21,6 +21,7 @@
 .sidebar {
   color: var(--color-on-primary);
   opacity: 0.85;
+  padding-inline: 0;
 }
 
 .sidebar:hover {

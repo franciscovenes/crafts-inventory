@@ -5,7 +5,7 @@ import { INVENTORY_STATE } from "../../constants/constants";
 import { useState } from "react";
 import * as z from "zod";
 import { itemSchema } from "../../validation/itemSchema";
-import FieldError from "../FieldError/FieldError";
+import FieldError from "../../../../components/FieldError/FieldError";
 
 export default function ItemForm({
   onSave,

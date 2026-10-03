@@ -12,4 +12,9 @@ export const navigation = [
     to: "/inventory",
     label: "Inventory",
   },
+  {
+    to: "/admin/master-data",
+    label: "Master Data",
+    requiredRole: "admin",
+  },
 ];

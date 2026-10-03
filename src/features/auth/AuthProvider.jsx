@@ -13,15 +13,8 @@ export default function AuthProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    /* async function signIn() {
-      const result = await loginUser({
-        email: "francisco.venes@gmail.com",
-        password: "l4jHlSX4tmgH7v8Js2TR",
-      });
-    }
-    signIn(); */
-
     async function getUser() {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       const result = await getAuthMe();
       setCurrentUser(result);
       setIsLoading(false);
@@ -38,17 +31,16 @@ export default function AuthProvider({ children }) {
   const loginUser = async (payload) => {
     const { success, error } = await signInWithEmail(payload);
     if (success) {
-      return undefined;
+      return { success: true };
     }
 
-    return error;
+    return { success: false, error };
   };
 
   const logoutUser = async () => {
     await signOut();
   };
 
-  // console.log("Current User: ", currentUser);
   if (isLoading) return <p>Loading...</p>;
 
   return (

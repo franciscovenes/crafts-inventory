@@ -1,6 +1,7 @@
 .container {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
+  border: solid 1px red;
 }
 .success {
   color: var(--color-success);

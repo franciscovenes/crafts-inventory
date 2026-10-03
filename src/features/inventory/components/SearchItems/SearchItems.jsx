@@ -11,8 +11,6 @@ import {
 } from "./searchItemsUtils";
 import SearchChip from "./SearchChip";
 import { findSuggestions } from "./suggestions/findSuggestions";
-import ColorLabel from "../../../../components/ColorLabel/ColorLabel";
-import { searchItems } from "./searchService";
 import { useSearchParams } from "react-router-dom";
 
 export default function SearchItems({ masterData }) {

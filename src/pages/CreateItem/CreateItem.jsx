@@ -18,11 +18,8 @@ export default function CreateItem() {
 
   const [draftItem, setDraftItem] = useState(() => createEmptyItem(masterData));
   const [message, setMessage] = useState(null);
-  // console.log("Draft Item: ", draftItem);
 
   const handleInsertItem = async (validatedData) => {
-    // console.log("INSERT ITEM");
-    // console.log("Validated data: ", validatedData);
     setMessage(null);
 
     try {

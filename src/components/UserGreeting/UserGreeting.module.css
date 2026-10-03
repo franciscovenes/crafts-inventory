@@ -1,8 +1,19 @@
 .container {
   order: 2;
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
 }
 
 strong {
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-strong);
+}
+
+.roleBadge {
+  border: solid 1px;
+  padding-inline: var(--space-sm);
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
 }

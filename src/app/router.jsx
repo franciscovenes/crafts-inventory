@@ -7,20 +7,9 @@ import {
 import Home from "../pages/Home/Home";
 import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
 import AppLayout from "../layouts/AppLayout/AppLayout";
-import {
-  getItems,
-  getItemById,
-  getModels,
-  getTypes,
-  getArtisans,
-  getStates,
-  getConditions,
-  getColors,
-} from "../features/inventory/inventoryService";
-import { IoLogoModelS } from "react-icons/io";
+import { getItems, getItemById } from "../features/inventory/inventoryService";
 import { getMasterDataPromise } from "../features/inventory/inventoryLoaders";
 import { searchItems } from "../features/inventory/components/SearchItems/searchService";
-import { AuthenticationContext } from "../features/auth/AuthProvider";
 import { getAuthMe } from "../features/auth/authService";
 
 const INVENTORY_PAGE_SIZE = 5;
@@ -111,6 +100,31 @@ export const router = createBrowserRouter(
               loader: async () => ({
                 masterData: await getMasterDataPromise(),
               }),
+            },
+            {
+              path: "admin",
+              loader: ({ context }) => {
+                const user = context.get(authContext);
+                if (user?.role !== "admin") {
+                  throw redirect("/");
+                }
+              },
+              children: [
+                {
+                  index: true,
+                  loader: () => {
+                    return redirect("/");
+                  },
+                },
+                {
+                  path: "master-data",
+                  lazy: async () => {
+                    const { default: MasterData } =
+                      await import("../pages/MasterData/MasterData");
+                    return { Component: MasterData };
+                  },
+                },
+              ],
             },
           ],
         },

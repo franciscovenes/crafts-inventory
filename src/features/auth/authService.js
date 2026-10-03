@@ -91,7 +91,6 @@ export function subscribeToAuthChanges(callback) {
   const { data } = supabase.auth.onAuthStateChange((_event, _session) => {
     setTimeout(async () => {
       const result = await getAuthMe();
-      console.log(result);
       callback(result);
     }, 0);
   });
