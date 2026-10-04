@@ -5,7 +5,7 @@ import {
   getStates,
   getConditions,
   getColors,
-} from "./inventoryService";
+} from "./masterDataService";
 
 export async function getMasterDataPromise() {
   const [models, types, artisans, states, conditions, colors] =

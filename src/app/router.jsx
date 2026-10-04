@@ -8,7 +8,7 @@ import Home from "../pages/Home/Home";
 import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
 import AppLayout from "../layouts/AppLayout/AppLayout";
 import { getItems, getItemById } from "../features/inventory/inventoryService";
-import { getMasterDataPromise } from "../features/inventory/inventoryLoaders";
+import { getMasterDataPromise } from "../features/master-data/masterDataLoaders";
 import { searchItems } from "../features/inventory/components/SearchItems/searchService";
 import { getAuthMe } from "../features/auth/authService";
 
@@ -123,6 +123,9 @@ export const router = createBrowserRouter(
                       await import("../pages/MasterData/MasterData");
                     return { Component: MasterData };
                   },
+                  loader: async () => ({
+                    masterData: await getMasterDataPromise(),
+                  }),
                 },
               ],
             },
