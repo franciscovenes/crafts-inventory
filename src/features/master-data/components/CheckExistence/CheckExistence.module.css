@@ -1,0 +1,33 @@
+.checkExistence {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-tight);
+  min-height: calc(1em * var(--line-height-tight) + var(--space-xs));
+  grid-column: 1/-1;
+}
+
+.existenceMsg {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-block-start: var(--space-xs);
+}
+
+.existenceMsg > svg {
+  width: 1em;
+  height: 1em;
+}
+
+.available {
+  color: var(--color-success);
+}
+
+.exists {
+  color: var(--color-warning);
+}
+
+@media (min-width: 48rem) {
+  .checkExistence {
+    grid-row: 2;
+    grid-column: 2 / -1;
+  }
+}

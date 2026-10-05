@@ -36,6 +36,12 @@ export async function getColors() {
   return getAll("colors");
 }
 
-export async function addMasterData(category, payload) {
-  console.log(category, payload);
+export async function insertMasterData(category, payload) {
+  const { data, error } = await supabase.rpc("create_metadata", {
+    p_category: category,
+    p_payload: payload,
+  });
+
+  if (error) throw error;
+  return data;
 }

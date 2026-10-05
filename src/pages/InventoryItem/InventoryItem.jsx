@@ -17,7 +17,6 @@ import ItemForm from "../../features/inventory/components/ItemForm/ItemForm";
 import { updateItemById } from "../../features/inventory/inventoryService";
 import StatusMessage from "../../components/StatusMessage/StatusMessage";
 import { SavePen } from "lucide-react";
-import { X } from "lucide-react";
 import { createEmptyItem } from "../../features/inventory/inventoryUtils";
 
 export default function InventoryItem() {
