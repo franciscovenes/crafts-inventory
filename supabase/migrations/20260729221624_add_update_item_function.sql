@@ -45,5 +45,6 @@ begin
 end;
 $$;
 
+REVOKE EXECUTE ON FUNCTION update_item(integer, jsonb) FROM PUBLIC, anon;
 GRANT EXECUTE ON FUNCTION update_item(integer, jsonb) TO authenticated;
         

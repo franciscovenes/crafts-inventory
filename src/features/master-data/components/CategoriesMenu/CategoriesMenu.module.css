@@ -1,0 +1,28 @@
+.navigation {
+  width: fit-content;
+  align-self: center;
+  font-size: var(--font-size-sm);
+}
+.navigation > ul {
+  display: flex;
+  flex-wrap: wrap;
+  color: var(--color-text-muted);
+}
+
+.navigation ul > li {
+  line-height: var(--line-height-tight);
+}
+
+.navigation ul > li + li {
+  border-inline-start: solid 1px var(--color-text-muted);
+}
+
+.navigation a {
+  padding: var(--space-xs) var(--space-sm);
+}
+
+@media (min-width: 48rem) {
+  .navigation {
+    display: none;
+  }
+}

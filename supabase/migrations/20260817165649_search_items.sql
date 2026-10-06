@@ -297,5 +297,6 @@ order by
 end;
 $$;
 
+REVOKE EXECUTE ON FUNCTION search_items(jsonb) FROM PUBLIC, anon;
 GRANT EXECUTE ON FUNCTION search_items(jsonb) TO authenticated;
         

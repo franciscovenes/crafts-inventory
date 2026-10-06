@@ -1,4 +1,4 @@
-create or replace function create_metadata(
+create or replace function create_masterdata(
     p_category text,
     p_payload text
 )
@@ -37,3 +37,6 @@ begin
     return true;
 end;
 $$;
+
+REVOKE EXECUTE ON FUNCTION create_masterdata(text, text) FROM PUBLIC, anon;
+GRANT EXECUTE ON FUNCTION create_masterdata(text, text) TO authenticated;

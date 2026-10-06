@@ -51,4 +51,5 @@ begin
 end;
 $$;
 
+REVOKE EXECUTE ON FUNCTION create_item(jsonb) FROM PUBLIC, anon;
 GRANT EXECUTE ON FUNCTION create_item(jsonb) TO authenticated;

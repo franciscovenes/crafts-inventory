@@ -8,7 +8,11 @@ import Home from "../pages/Home/Home";
 import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
 import AppLayout from "../layouts/AppLayout/AppLayout";
 import { getItems, getItemById } from "../features/inventory/inventoryService";
-import { getMasterDataPromise } from "../features/master-data/masterDataLoaders";
+import {
+  getMasterDataPromise,
+  getActiveMasterDataPromise,
+  getItemMasterDataPromise,
+} from "../features/master-data/masterDataLoaders";
 import { searchItems } from "../features/inventory/components/SearchItems/searchService";
 import { getAuthMe } from "../features/auth/authService";
 
@@ -83,10 +87,14 @@ export const router = createBrowserRouter(
                   await import("../pages/InventoryItem/InventoryItem");
                 return { Component: InventoryItem };
               },
-              loader: ({ params }) => ({
-                itemPromise: getItemById(params.id),
-                masterDataPromise: getMasterDataPromise(),
-              }),
+              loader: async ({ params }) => {
+                const itemPromise = getItemById(params.id);
+                const item = await itemPromise;
+                return {
+                  itemPromise,
+                  masterDataPromise: getItemMasterDataPromise(item),
+                };
+              },
             },
             {
               path: "create",
@@ -98,7 +106,7 @@ export const router = createBrowserRouter(
                 };
               },
               loader: async () => ({
-                masterData: await getMasterDataPromise(),
+                masterData: await getActiveMasterDataPromise(),
               }),
             },
             {

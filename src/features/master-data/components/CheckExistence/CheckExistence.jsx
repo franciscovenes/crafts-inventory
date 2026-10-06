@@ -7,7 +7,6 @@ import { normalizeMasterDataValue } from "../../masterDataUtils";
 const DELAY = 500;
 
 export default function CheckExistence({
-  category,
   value,
   masterData,
   existence,
@@ -26,14 +25,14 @@ export default function CheckExistence({
           normalizeMasterDataValue(debounced).toLowerCase(),
       );
       if (valueExists) {
-        onExistenceChange(category, "exists");
+        onExistenceChange("exists");
       } else {
-        onExistenceChange(category, "available");
+        onExistenceChange("available");
       }
     } else {
-      onExistenceChange(category, null);
+      onExistenceChange(null);
     }
-  }, [debounced, masterData, category, onExistenceChange]);
+  }, [debounced, masterData, onExistenceChange]);
   return (
     <div className={styles.checkExistence}>
       {existence ? (
