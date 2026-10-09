@@ -24,10 +24,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+*.code-workspace
 
 readmes
 old
-warmi-muyu-revised.code-workspace
 test_seed.sql
 
 supabase/.temp/
