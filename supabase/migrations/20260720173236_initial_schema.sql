@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS item_colors (
     CONSTRAINT item_colors_color_id_fkey
         FOREIGN KEY(color_id)
         REFERENCES colors(id)
-        ON DELETE RESTRICT
+        ON DELETE RESTRICT,
     
     CONSTRAINT item_colors_item_id_color_id_key
         UNIQUE(item_id, color_id)

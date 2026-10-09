@@ -232,7 +232,7 @@ export default function SearchItems({ masterData }) {
       >
         {suggestions.length > 0 &&
           suggestions.map(({ field, value, candidateSequence }, index) => {
-            const { name, hex } = value;
+            const { name, hex_code } = value;
             return (
               <li key={`${field}-${name}`}>
                 <button
@@ -248,7 +248,7 @@ export default function SearchItems({ masterData }) {
                   {field === "color" && (
                     <span
                       className={styles.colorSwatch}
-                      style={{ "--color": hex }}
+                      style={{ "--color": hex_code }}
                       aria-hidden="true"
                     />
                   )}

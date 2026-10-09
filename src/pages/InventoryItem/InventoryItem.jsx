@@ -63,8 +63,6 @@ export default function InventoryItem() {
     }
   };
 
-  // console.log("Draft Item: ", draftItem);
-
   return (
     <PageLayout title={`Item ${id}`}>
       <Suspense fallback={<p>Loading...</p>}>

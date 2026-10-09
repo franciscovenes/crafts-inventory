@@ -84,10 +84,14 @@ export async function getItemById(id) {
       `,
     )
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
   if (error) {
     throw new Error(error.message);
+  }
+
+  if (!data) {
+    return null;
   }
 
   const { models, types, artisans, states, conditions, item_colors, ...rest } =

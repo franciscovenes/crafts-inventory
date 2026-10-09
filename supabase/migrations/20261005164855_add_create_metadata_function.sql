@@ -7,6 +7,9 @@ language plpgsql
 security definer
 set search_path = public
 as $$
+declare
+    metadata_count bigint;
+    max_count constant bigint := 50;
 begin
     if not exists (
         select 1
@@ -26,6 +29,16 @@ begin
         'states'
     ) then
         raise exception 'Invalid master data category: %', p_category;
+    end if;
+
+    execute format(
+        'select count(*) from %I',
+        p_category
+    ) into metadata_count;
+
+    if metadata_count >= 50 then
+        raise exception 'Maximum number of entries (%) reached for %.',
+        max_count, p_category;
     end if;
 
     execute format(

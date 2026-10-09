@@ -17,10 +17,8 @@ export default function MasterDataSection({ masterData, category }) {
   const hasEditedSinceSubmit = useRef(false);
 
   const [formValue, setFormValue] = useState("");
-  //console.log("Form value: ", formValue);
 
   const [existence, setExistence] = useState(null);
-  // console.log("Existence: ", existence);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -90,7 +88,7 @@ export default function MasterDataSection({ masterData, category }) {
       console.error(error);
       setSubmitMsg({
         success: false,
-        message: `${payload} wasn't submitted. Please try again.`,
+        message: `${payload} wasn't submitted. ${error.message} Please try again.`,
       });
     } finally {
       hasEditedSinceSubmit.current = false;

@@ -14,16 +14,16 @@ function prepareCategory(category, values) {
       ...value,
       normalizedName: value.name.trim().toLowerCase(),
       ...(category === "colors" && {
-        isLight: isLightColor(value.hex),
+        isLight: isLightColor(value.hex_code),
       }),
     }))
     .sort((a, b) => b.normalizedName.length - a.normalizedName.length);
 }
 
-function isLightColor(hex) {
-  const red = parseInt(hex.slice(1, 3), 16);
-  const green = parseInt(hex.slice(3, 5), 16);
-  const blue = parseInt(hex.slice(5, 7), 16);
+function isLightColor(hex_code) {
+  const red = parseInt(hex_code.slice(1, 3), 16);
+  const green = parseInt(hex_code.slice(3, 5), 16);
+  const blue = parseInt(hex_code.slice(5, 7), 16);
 
   const luminance = 0.299 * red + 0.587 * green + 0.114 * blue;
 
@@ -58,7 +58,7 @@ export function insertMetadataToken(tokens, field, value) {
     field,
     value: value.name,
     ...(field === "color" && {
-      hex: value.hex,
+      hex_code: value.hex_code,
       isLight: value.isLight,
     }),
   });
@@ -75,7 +75,7 @@ export function deserializeSearchState(searchPayload, preparedMasterData) {
 
   searchPayload.hardFilters.forEach(({ type, field, value, operator }) => {
     if (type === "masterData") {
-      const { hex, isLight } =
+      const { hex_code, isLight } =
         preparedMasterData.colors.find((color) => color.name === value) ?? {};
       tokens.push({
         id: crypto.randomUUID(),
@@ -83,7 +83,7 @@ export function deserializeSearchState(searchPayload, preparedMasterData) {
         field,
         value,
         ...(field === "color" && {
-          hex,
+          hex_code,
           isLight,
         }),
       });

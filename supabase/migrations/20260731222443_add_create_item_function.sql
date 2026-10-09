@@ -6,7 +6,9 @@ language plpgsql
 security definer
 set search_path = public
 as $$
-declare v_item_id integer;
+declare 
+    v_item_id integer;
+    max_items constant bigint := 50;
 begin
     if not exists (
         select 1
@@ -14,6 +16,14 @@ begin
         where profiles.id = auth.uid() and profiles.active = true
     ) then
         raise exception 'Unauthorized item creation';  
+    end if;
+
+    if (
+        select count(*)
+        from items
+    ) >= max_items
+        then
+            raise exception 'Maximum number of items (%) reached.', max_items;
     end if;
 
     insert into items (

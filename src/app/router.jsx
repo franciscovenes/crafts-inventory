@@ -88,8 +88,18 @@ export const router = createBrowserRouter(
                 return { Component: InventoryItem };
               },
               loader: async ({ params }) => {
-                const itemPromise = getItemById(params.id);
+                const { id } = params;
+
+                if (!/^\d+$/.test(id ?? "")) {
+                  throw redirect("/not-found");
+                }
+
+                const itemPromise = getItemById(Number(id));
                 const item = await itemPromise;
+
+                if (!item) {
+                  redirect("/not-found");
+                }
                 return {
                   itemPromise,
                   masterDataPromise: getItemMasterDataPromise(item),
@@ -137,6 +147,17 @@ export const router = createBrowserRouter(
                 },
               ],
             },
+            {
+              path: "*",
+              lazy: async () => {
+                const { default: NotFound } =
+                  await import("../pages/NotFound/NotFound");
+
+                return {
+                  Component: NotFound,
+                };
+              },
+            },
           ],
         },
         {
@@ -153,17 +174,6 @@ export const router = createBrowserRouter(
             if (user?.active) {
               throw redirect("/");
             }
-          },
-        },
-        {
-          path: "*",
-          lazy: async () => {
-            const { default: NotFound } =
-              await import("../pages/NotFound/NotFound");
-
-            return {
-              Component: NotFound,
-            };
           },
         },
       ],

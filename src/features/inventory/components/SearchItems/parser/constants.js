@@ -24,22 +24,16 @@ export const primitiveFieldAliasMap = Object.fromEntries(
   ),
 );
 
-// console.log("Primitive field alias map: ", primitiveFieldAliasMap);
-
 // Create an aliases list for the regex pattern so the user can use different names. Example: hours and production_hours are both matched
 const primitiveFieldAliases = Object.entries(PRIMITIVE_FIELDS).flatMap(
   ([_field, { aliases }]) => aliases,
 );
-
-// console.log(primitiveFieldAliases);
 
 // Order aliases by decreasing length to avoid partial matches when one alias is a prefix of a longer one
 
 const fieldPattern = primitiveFieldAliases
   .sort((a, b) => b.length - a.length)
   .join("|");
-
-// console.log(fieldPattern);
 
 // Search pattern for primitives
 

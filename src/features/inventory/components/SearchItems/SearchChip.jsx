@@ -12,7 +12,7 @@ export default function SearchChip({ token, onRemove, removalHint }) {
       } 
       ${removalHint ? styles.removalHint : ""}`}
       style={
-        token.field === "color" ? { "--chip-color": token.hex } : undefined
+        token.field === "color" ? { "--chip-color": token.hex_code } : undefined
       }
     >
       <span>

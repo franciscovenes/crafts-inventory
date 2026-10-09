@@ -1,15 +1,11 @@
 import { NavLink } from "react-router-dom";
-// import logoNotFound from "/img/logoNotFound.png";
-// import Footer from "../components/Footer";
-import "../css/notFound.css";
+import styles from "./NotFound.module.css";
 
 export default function NotFound() {
   return (
-    <div className="notFound-container">
-      <img className="notFound-logo" src={logoNotFound} alt="logo" />
-      <h4>Página no encontrada</h4>
-      <NavLink to="/">Volver al inicio</NavLink>
-      <Footer />
+    <div className={styles.container}>
+      <div className={styles.notFoundImage} aria-label="404" role="img" />
+      <h1>Page not found</h1>
     </div>
   );
 }

@@ -40,7 +40,6 @@ export default function ItemForm({
   const [zodErrors, setZodErrors] = useState(null);
 
   const handleSubmit = (event) => {
-    console.log("Handle Submit clicked!");
     event.preventDefault();
     const validationOutcome = itemSchema.safeParse(item);
 
@@ -94,7 +93,6 @@ export default function ItemForm({
 
   const handleFieldChange = (event) => {
     const { name, type, value } = event.target;
-    console.log("Handle field change");
 
     const parsedValue =
       type === "number" ? (value === "" ? null : Number(value)) : value;
@@ -189,7 +187,7 @@ export default function ItemForm({
         <fieldset className={styles.colorsFieldset}>
           <legend className={styles.visuallyHidden}>Colors</legend>
 
-          {masterColors.map(({ id, name, hex }) => (
+          {masterColors.map(({ id, name, hex_code }) => (
             <label className={styles.colorOption} key={id}>
               <input
                 type="checkbox"
@@ -200,7 +198,7 @@ export default function ItemForm({
                 onChange={handleColorChange}
               />
 
-              <ColorLabel hex={hex} name={name} />
+              <ColorLabel hex_code={hex_code} name={name} />
             </label>
           ))}
         </fieldset>

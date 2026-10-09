@@ -25,7 +25,7 @@ export const itemSchema = z.object({
     .array(
       z.object({
         id: z.number().int().positive(),
-        hex: z
+        hex_code: z
           .string()
           .trim()
           .regex(/^#[0-9A-Fa-f]{6}$/),

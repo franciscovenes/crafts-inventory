@@ -19,8 +19,6 @@ export default function InventoryItemDetails({ item }) {
     location,
   } = item;
 
-  // console.log("Item: ", item);
-
   return (
     <dl className={`${styles.details} ${itemFields.layout}`}>
       <dt className={itemFields.label}>Model</dt>
@@ -32,9 +30,9 @@ export default function InventoryItemDetails({ item }) {
       <dt className={itemFields.label}>Colors</dt>
       <dd className={itemFields.fieldValue}>
         <ul className={styles.colors}>
-          {colors.map(({ id, hex, name }) => (
+          {colors.map(({ id, hex_code, name }) => (
             <li key={id}>
-              <ColorLabel hex={hex} name={name} />
+              <ColorLabel hex_code={hex_code} name={name} />
             </li>
           ))}
         </ul>

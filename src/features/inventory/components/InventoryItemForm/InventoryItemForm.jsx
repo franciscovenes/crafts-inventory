@@ -9,33 +9,6 @@ export default function InventoryItemForm({
   masterData,
   onSubmit,
 }) {
-  /*   const {
-    price,
-    length_cm,
-    width_cm,
-    location,
-    production_hours,
-    model_id,
-    type_id,
-    artisan_id,
-    state_id,
-    condition_id,
-    colors: selectedColors,
-  } = item;
-  console.log("Item: ", item); */
-  /* console.log("model_id: ", model_id);
-  console.log("type_id: ", type_id);
-  console.log("artisan_id: ", artisan_id);
-  console.log("state_id: ", state_id);
-  console.log("condition_id: ", condition_id);
-  console.log("price: ", price);
-  console.log("length_cm: ", length_cm);
-  console.log("width_cm: ", width_cm);
-  console.log("location: ", location);
-  console.log("production_hours: ", production_hours); */
-
-  // console.log("Master Data: ", masterData);
-
   const {
     models,
     types,
@@ -47,7 +20,6 @@ export default function InventoryItemForm({
 
   function handleFieldChange(event) {
     const { name, type, value } = event.target;
-    console.log("Handle field change");
 
     const parsedValue =
       value === "" ? null : type === "number" ? Number(value) : value;
@@ -159,7 +131,7 @@ export default function InventoryItemForm({
       <label className={itemFields.label}>Colors</label>
       <fieldset className={`${itemFields.fieldValue} ${styles.colorsFieldset}`}>
         <legend className={styles.visuallyHidden}>Colors</legend>
-        {masterColors.map(({ id, name, hex }) => (
+        {masterColors.map(({ id, name, hex_code }) => (
           <label className={styles.colorOption} key={id}>
             <input
               type="checkbox"
@@ -170,7 +142,7 @@ export default function InventoryItemForm({
               onChange={handleColorChange}
             />
 
-            <ColorLabel hex={hex} name={name} />
+            <ColorLabel hex_code={hex_code} name={name} />
           </label>
         ))}
       </fieldset>

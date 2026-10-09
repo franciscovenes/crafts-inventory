@@ -63,7 +63,6 @@ export function parsePrimitives(input, currentTokens) {
 }
 
 export function parseMasterData(input, masterData, currentTokens) {
-  console.log("Parse master data");
   // This is a dictionary-driven parser. Go through master data categories sequentially
   // Follow this order: Models, Types, Conditions, States, Colors
 

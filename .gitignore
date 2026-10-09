@@ -28,4 +28,8 @@ dist-ssr
 readmes
 old
 warmi-muyu-revised.code-workspace
-src/utils/utils.js.old
+test_seed.sql
+
+supabase/.temp/
+supabase/snippets/
+supabase/.branches

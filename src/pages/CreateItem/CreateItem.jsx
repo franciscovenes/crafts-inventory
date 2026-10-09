@@ -14,13 +14,12 @@ import StatusMessage from "../../components/StatusMessage/StatusMessage";
 export default function CreateItem() {
   let navigate = useNavigate();
   const { masterData } = useLoaderData();
-  // console.log("Master data: ", masterData);
 
   const [draftItem, setDraftItem] = useState(() => createEmptyItem(masterData));
-  const [message, setMessage] = useState(null);
+  const [submitError, setSubmitError] = useState(null);
 
   const handleInsertItem = async (validatedData) => {
-    setMessage(null);
+    setSubmitError(null);
 
     try {
       const insertedId = await insertItem(validatedData);
@@ -35,9 +34,10 @@ export default function CreateItem() {
       });
     } catch (error) {
       console.error(error);
-      setMessage({
+      setSubmitError({
         type: "error",
         text: "Unable to create item. Please try again",
+        message: error.message,
       });
     }
   };
@@ -53,8 +53,10 @@ export default function CreateItem() {
           Save item
         </ActionBtn>
       </EditControls>
-      {message && (
-        <StatusMessage variant={message.type}>{message.text}</StatusMessage>
+      {submitError && (
+        <StatusMessage variant={submitError.type}>
+          {submitError.text} - Message: {submitError.message}
+        </StatusMessage>
       )}
       <ItemForm
         onSave={handleInsertItem}
@@ -74,9 +76,9 @@ export default function CreateItem() {
           Save item
         </ActionBtn>
       </EditControls>
-      {message && (
-        <StatusMessage variant={message.type} mobile>
-          {message.text}
+      {submitError && (
+        <StatusMessage variant={submitError.type} mobile>
+          {submitError.text} - Message: {submitError.message}
         </StatusMessage>
       )}
     </PageLayout>
