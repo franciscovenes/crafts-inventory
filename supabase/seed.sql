@@ -55,7 +55,7 @@ VALUES
 -- ==========================
 -- COLORS
 -- ==========================
-INSERT INTO colors (name, hex)
+INSERT INTO colors (name, hex_code)
 VALUES
     ('Gold', '#D4AF37'),
     ('Silver', '#C0C0C0'),

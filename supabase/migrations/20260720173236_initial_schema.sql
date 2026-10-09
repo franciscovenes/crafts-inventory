@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS states (
 CREATE TABLE IF NOT EXISTS colors (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT UNIQUE NOT NULL,
-    hex TEXT NOT NULL,
+    hex_code TEXT NOT NULL,
     active BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMPTZ
@@ -67,38 +67,38 @@ CREATE TABLE IF NOT EXISTS items (
 
     search_vector tsvector,
 
-    CONSTRAINT fk_model 
+    CONSTRAINT items_model_id_fkey
         FOREIGN KEY(model_id) 
         REFERENCES models(id) 
         ON DELETE RESTRICT,
 
-    CONSTRAINT fk_type 
+    CONSTRAINT items_type_id_fkey
         FOREIGN KEY(type_id) 
         REFERENCES types(id) 
         ON DELETE RESTRICT,
 
-    CONSTRAINT fk_artisan 
+    CONSTRAINT items_artisan_id_fkey 
         FOREIGN KEY(artisan_id) 
         REFERENCES artisans(id) 
         ON DELETE RESTRICT,
 
-    CONSTRAINT fk_condition 
+    CONSTRAINT items_condition_id_fkey 
         FOREIGN KEY(condition_id) 
         REFERENCES conditions(id) 
         ON DELETE RESTRICT,
 
-    CONSTRAINT fk_state 
+    CONSTRAINT items_state_id_fkey
         FOREIGN KEY(state_id) 
         REFERENCES states(id) 
         ON DELETE RESTRICT,
     
-    CONSTRAINT check_price_positive
+    CONSTRAINT items_price_nonnegative_check
         CHECK (price >= 0),
-    CONSTRAINT check_length_positive
+    CONSTRAINT items_length_cm_positive_check
         CHECK (length_cm > 0),
-    CONSTRAINT check_width_positive
+    CONSTRAINT items_width_cm_positive_check
         CHECK (width_cm > 0),
-    CONSTRAINT check_hours_positive
+    CONSTRAINT items_production_hours_positive_check
         CHECK (production_hours > 0)
 );
 
@@ -108,15 +108,18 @@ CREATE TABLE IF NOT EXISTS item_colors (
 
     PRIMARY KEY (item_id, color_id),
 
-    CONSTRAINT fk_item
+    CONSTRAINT item_colors_item_id_fkey
         FOREIGN KEY(item_id)
         REFERENCES items(id)
         ON DELETE CASCADE,
 
-    CONSTRAINT fk_color
+    CONSTRAINT item_colors_color_id_fkey
         FOREIGN KEY(color_id)
         REFERENCES colors(id)
         ON DELETE RESTRICT
+    
+    CONSTRAINT item_colors_item_id_color_id_key
+        UNIQUE(item_id, color_id)
 );
 
 CREATE OR REPLACE VIEW master_data_names 
@@ -141,7 +144,7 @@ CREATE TABLE IF NOT EXISTS profiles (
     active BOOLEAN NOT NULL DEFAULT TRUE,
     display_name TEXT CHECK (char_length(display_name) <= 100) NOT NULL,
 
-    CONSTRAINT fk_profile_user
+    CONSTRAINT profiles_id_fkey
         FOREIGN KEY (id)
         REFERENCES auth.users(id)
         ON DELETE CASCADE
