@@ -3,7 +3,7 @@ import styles from "./Login.module.css";
 import { useState, useContext } from "react";
 import "@fontsource/jetbrains-mono";
 import { ArrowRight } from "lucide-react";
-import { AuthenticationContext } from "../../features/auth/AuthProvider";
+import { AuthenticationContext } from "../../features/auth/AuthenticationContext";
 import * as z from "zod";
 import FieldError from "../../components/FieldError/FieldError";
 import { useNavigate } from "react-router-dom";

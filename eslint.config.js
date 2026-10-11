@@ -44,12 +44,14 @@ export default [
         "warn",
         { allowConstantExport: true },
       ],
+
+      "no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+        },
+      ],
+      "react/prop-types": "off",
     },
-    "no-unused-vars": [
-      "error",
-      {
-        argsIgnorePattern: "^_",
-      },
-    ],
   },
 ];

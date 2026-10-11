@@ -27,7 +27,6 @@ dist-ssr
 *.code-workspace
 
 readmes
-old
 test_seed.sql
 
 supabase/.temp/

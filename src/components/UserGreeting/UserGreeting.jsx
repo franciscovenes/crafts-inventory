@@ -1,6 +1,6 @@
 import styles from "./UserGreeting.module.css";
 import { useContext } from "react";
-import { AuthenticationContext } from "../../features/auth/AuthProvider";
+import { AuthenticationContext } from "../../features/auth/AuthenticationContext";
 
 export default function UserGreeting() {
   const { currentUser } = useContext(AuthenticationContext);

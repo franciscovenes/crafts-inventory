@@ -4,7 +4,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import styles from "./DashboardLayout.module.css";
 import { useState } from "react";
 import { useContext } from "react";
-import { AuthenticationContext } from "../../features/auth/AuthProvider";
+import { AuthenticationContext } from "../../features/auth/AuthenticationContext";
 import { useEffect } from "react";
 
 export default function DashboardLayout() {

@@ -1,4 +1,3 @@
-import styles from "./CreateItem.module.css";
 import PageLayout from "../../layouts/PageLayout/PageLayout";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import ItemForm from "../../features/inventory/components/ItemForm/ItemForm";

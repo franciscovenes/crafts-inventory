@@ -4,7 +4,7 @@ import styles from "./Sidebar.module.css";
 import { X } from "lucide-react";
 import AccountPanel from "../AccountPanel/AccountPanel";
 import { useContext } from "react";
-import { AuthenticationContext } from "../../features/auth/AuthProvider";
+import { AuthenticationContext } from "../../features/auth/AuthenticationContext";
 
 export default function Sidebar({ className, isSidebarOpen, onClose }) {
   const { currentUser } = useContext(AuthenticationContext);

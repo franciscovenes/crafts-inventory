@@ -1,9 +1,9 @@
 import {
   createBrowserRouter,
-  createContext,
   redirect,
   RouterContextProvider,
 } from "react-router-dom";
+import { authContext } from "./routerContext";
 import Home from "../pages/Home/Home";
 import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
 import AppLayout from "../layouts/AppLayout/AppLayout";
@@ -15,10 +15,9 @@ import {
 } from "../features/master-data/masterDataLoaders";
 import { searchItems } from "../features/inventory/components/SearchItems/searchService";
 import { getAuthMe } from "../features/auth/authService";
+import { requireActiveUser } from "./routerGuards";
 
 const INVENTORY_PAGE_SIZE = 5;
-
-export const authContext = createContext();
 
 export const router = createBrowserRouter(
   [
@@ -29,18 +28,19 @@ export const router = createBrowserRouter(
         {
           element: <DashboardLayout />,
           loader: ({ context }) => {
-            const user = context.get(authContext);
-            if (!user?.active) {
-              throw redirect("/login");
-            }
+            requireActiveUser(context);
           },
           children: [
             {
               path: "/",
               Component: Home,
-              loader: ({ context }) => ({
-                recentItemsPromise: getItems({ limit: 5 }),
-              }),
+              loader: ({ context }) => {
+                requireActiveUser(context);
+
+                return {
+                  recentItemsPromise: getItems({ limit: 5 }),
+                };
+              },
             },
             {
               path: "inventory",
@@ -51,7 +51,9 @@ export const router = createBrowserRouter(
                   Component: Inventory,
                 };
               },
-              loader: ({ request }) => {
+              loader: ({ request, context }) => {
+                requireActiveUser(context);
+
                 const url = new URL(request.url);
                 const page = Number(url.searchParams.get("page")) || 1;
                 const searchPayload = JSON.parse(
@@ -87,7 +89,9 @@ export const router = createBrowserRouter(
                   await import("../pages/InventoryItem/InventoryItem");
                 return { Component: InventoryItem };
               },
-              loader: async ({ params }) => {
+              loader: async ({ params, context }) => {
+                requireActiveUser(context);
+
                 const { id } = params;
 
                 if (!/^\d+$/.test(id ?? "")) {
@@ -98,7 +102,7 @@ export const router = createBrowserRouter(
                 const item = await itemPromise;
 
                 if (!item) {
-                  redirect("/not-found");
+                  throw redirect("/not-found");
                 }
                 return {
                   itemPromise,
@@ -115,14 +119,18 @@ export const router = createBrowserRouter(
                   Component: CreateItem,
                 };
               },
-              loader: async () => ({
-                masterData: await getActiveMasterDataPromise(),
-              }),
+              loader: async ({ context }) => {
+                requireActiveUser(context);
+                return {
+                  masterData: await getActiveMasterDataPromise(),
+                };
+              },
             },
             {
               path: "admin",
               loader: ({ context }) => {
-                const user = context.get(authContext);
+                const user = requireActiveUser(context);
+
                 if (user?.role !== "admin") {
                   throw redirect("/");
                 }
@@ -141,9 +149,17 @@ export const router = createBrowserRouter(
                       await import("../pages/MasterData/MasterData");
                     return { Component: MasterData };
                   },
-                  loader: async () => ({
-                    masterData: await getMasterDataPromise(),
-                  }),
+                  loader: async ({ context }) => {
+                    const user = requireActiveUser(context);
+
+                    if (user.role !== "admin") {
+                      throw redirect("/");
+                    }
+
+                    return {
+                      masterData: await getMasterDataPromise(),
+                    };
+                  },
                 },
               ],
             },
@@ -171,6 +187,7 @@ export const router = createBrowserRouter(
           },
           loader: ({ context }) => {
             const user = context.get(authContext);
+
             if (user?.active) {
               throw redirect("/");
             }

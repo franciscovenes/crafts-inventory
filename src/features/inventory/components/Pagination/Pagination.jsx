@@ -4,13 +4,13 @@ import { getPager, createPageLink } from "./paginationUtils";
 import { Fragment } from "react";
 
 export default function Pagination({ total, pageSize }) {
+  const [searchParams] = useSearchParams();
+
   const totalPages = Math.ceil(total / pageSize);
 
   if (totalPages <= 1) {
     return null;
   }
-
-  const [searchParams] = useSearchParams();
 
   const currentPage = Number(searchParams.get("page")) || 1;
 

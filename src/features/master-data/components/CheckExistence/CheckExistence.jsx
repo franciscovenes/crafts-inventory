@@ -32,7 +32,7 @@ export default function CheckExistence({
     } else {
       onExistenceChange(null);
     }
-  }, [debounced, masterData, onExistenceChange]);
+  }, [debounced, masterData, onExistenceChange, value]);
   return (
     <div className={styles.checkExistence}>
       {existence ? (

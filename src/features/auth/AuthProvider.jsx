@@ -5,8 +5,7 @@ import {
   signOut,
   subscribeToAuthChanges,
 } from "./authService";
-
-const AuthenticationContext = createContext();
+import { AuthenticationContext } from "./AuthenticationContext";
 
 export default function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
@@ -51,5 +50,3 @@ export default function AuthProvider({ children }) {
     </AuthenticationContext>
   );
 }
-
-export { AuthenticationContext };

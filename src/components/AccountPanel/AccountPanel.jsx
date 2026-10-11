@@ -1,8 +1,7 @@
 import { useContext } from "react";
 import LogoutButton from "../LogoutButton/LogoutButton";
-import UserGreeting from "../UserGreeting/UserGreeting";
 import styles from "./AccountPanel.module.css";
-import { AuthenticationContext } from "../../features/auth/AuthProvider";
+import { AuthenticationContext } from "../../features/auth/AuthenticationContext";
 
 export default function AccountPanel() {
   const { currentUser } = useContext(AuthenticationContext);
