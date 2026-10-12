@@ -16,3 +16,5 @@ create trigger items_updated_at
 before update on items
 for each row
 execute function update_updated_at();
+
+REVOKE EXECUTE ON FUNCTION update_updated_at() FROM PUBLIC, anon;

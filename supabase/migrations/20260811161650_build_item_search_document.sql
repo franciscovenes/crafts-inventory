@@ -25,3 +25,5 @@ begin
     );
 end
 $$;
+
+REVOKE EXECUTE ON FUNCTION build_item_search_document (integer) FROM PUBLIC, anon;

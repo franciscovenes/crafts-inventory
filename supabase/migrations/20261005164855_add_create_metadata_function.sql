@@ -36,7 +36,7 @@ begin
         p_category
     ) into metadata_count;
 
-    if metadata_count >= 50 then
+    if metadata_count >= max_count then
         raise exception 'Maximum number of entries (%) reached for %.',
         max_count, p_category;
     end if;

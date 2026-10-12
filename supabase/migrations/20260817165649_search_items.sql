@@ -37,8 +37,10 @@ with
   array_agg(hard_filters ->> 'value') as filter_values,
   case
     when hard_filters ->> 'field' = 'color' 
-      then item_color_data.colors 
-        && array_agg(hard_filters ->> 'value')
+      then coalesce(
+        item_color_data.colors && array_agg(hard_filters ->> 'value'),
+        false
+      )
     else
       bool_or(
         case hard_filters ->> 'field'

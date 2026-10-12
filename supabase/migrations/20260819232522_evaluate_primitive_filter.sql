@@ -175,3 +175,5 @@ return (
 ); 
 end;
 $$;
+
+REVOKE EXECUTE ON FUNCTION evaluate_primitive_filter(numeric, text, jsonb) FROM PUBLIC, anon;
