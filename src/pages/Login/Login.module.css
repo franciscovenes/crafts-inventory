@@ -3,12 +3,16 @@
   justify-items: center;
   flex: 1;
   row-gap: var(--space-xl);
-  grid-template-rows: 33% max-content auto;
+  grid-template-rows: 15rem repeat(4, max-content);
   padding: var(--space-xl);
 }
 
+/* .container > * {
+  border: solid 1px red;
+} */
+
 .logo {
-  width: 40%;
+  width: 100%;
   align-self: end;
   max-width: 200px;
 }
@@ -20,10 +24,8 @@
 }
 
 .form {
-  align-self: start;
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
 }
 
 .field {
@@ -79,6 +81,50 @@
 }
 
 .loginError {
-  margin-block-start: var(--space-sm);
   color: var(--color-error);
+}
+
+.demoBox {
+  padding: var(--space-sm);
+  border: solid 1px var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.demoBox > h2 {
+  font-size: var(--font-size-md);
+}
+
+.demoBox > ul > li {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.labelCredential {
+  color: var(--color-text-muted);
+}
+
+.demoBox > ul code {
+  margin-inline-start: auto;
+}
+
+.demoBox > ul button,
+.iconWrapper {
+  display: flex;
+  padding: var(--space-xs);
+}
+
+.iconWrapper {
+  color: green;
+}
+
+.demoBox > ul svg {
+  width: 1em;
+  height: 1em;
+}
+
+.demoBox > p {
+  margin-block-start: var(--space-sm);
 }

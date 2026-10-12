@@ -7,6 +7,11 @@ import { AuthenticationContext } from "../../features/auth/AuthenticationContext
 import * as z from "zod";
 import FieldError from "../../components/FieldError/FieldError";
 import { useNavigate } from "react-router-dom";
+import { Copy } from "lucide-react";
+import { CircleCheck } from "lucide-react";
+
+const DEMO_EMAIL = "guest-admin@test.pt";
+const DEMO_PASSWORD = "&fVmK7QpZe7WQTjSHKaj";
 
 const loginSchema = z.object({
   email: z
@@ -31,6 +36,11 @@ export default function Login() {
   const [loginError, setLoginError] = useState(null);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [isCopied, setIsCopied] = useState({
+    email_credential: false,
+    password_credential: false,
+  });
 
   const handlePasswordVisibility = () => {
     setIsVisible((prevState) => !prevState);
@@ -80,6 +90,26 @@ export default function Login() {
       setIsSubmitting(false);
     }
   };
+
+  async function writeClipboardText(text, name) {
+    try {
+      await navigator.clipboard.writeText(text);
+
+      setIsCopied((prevState) => ({
+        ...prevState,
+        [name]: true,
+      }));
+
+      setTimeout(() => {
+        setIsCopied((prevState) => ({
+          ...prevState,
+          [name]: false,
+        }));
+      }, 3000);
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
   return (
     <div className={styles.container}>
       <img
@@ -88,39 +118,84 @@ export default function Login() {
         alt="The official logo for crafts-inventory"
       />
       <h1 className={styles.title}>crafts_inventory</h1>
-      <div>
-        <form noValidate className={styles.form} onSubmit={handleLogin}>
-          <div className={styles.field}>
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" />
-            <FieldError errors={zodErrors?.properties?.email?.errors} />
+
+      <form noValidate className={styles.form} onSubmit={handleLogin}>
+        <div className={styles.field}>
+          <label htmlFor="email">Email</label>
+          <input type="email" id="email" name="email" />
+          <FieldError errors={zodErrors?.properties?.email?.errors} />
+        </div>
+        <div className={styles.field}>
+          <label htmlFor="password">Password</label>
+          <div className={styles.passwordBox}>
+            <input
+              type={isVisible ? "text" : "password"}
+              id="password"
+              name="password"
+            />
+            <button type="button" onClick={handlePasswordVisibility}>
+              {isVisible ? <EyeOff /> : <Eye />}
+            </button>
           </div>
-          <div className={styles.field}>
-            <label htmlFor="password">Password</label>
-            <div className={styles.passwordBox}>
-              <input
-                type={isVisible ? "text" : "password"}
-                id="password"
-                name="password"
-              />
-              <button type="button" onClick={handlePasswordVisibility}>
-                {isVisible ? <EyeOff /> : <Eye />}
-              </button>
-            </div>
-            <FieldError errors={zodErrors?.properties?.password?.errors} />
-          </div>
-          {/* <p>Login error messages will go in here</p> */}
-          <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? (
-              "Logging in..."
+          <FieldError errors={zodErrors?.properties?.password?.errors} />
+        </div>
+        {/* <p>Login error messages will go in here</p> */}
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? (
+            "Logging in..."
+          ) : (
+            <>
+              Login <ArrowRight />
+            </>
+          )}
+        </button>
+      </form>
+      <p className={styles.loginError}>{loginError}</p>
+      <div className={styles.demoBox}>
+        <h2>Demo account (admin access)</h2>
+        <ul>
+          <li>
+            <span className={styles.labelCredential}>Email: </span>
+            <code>{DEMO_EMAIL}</code>
+            {isCopied.email_credential ? (
+              <span className={styles.iconWrapper}>
+                <CircleCheck />
+              </span>
             ) : (
-              <>
-                Login <ArrowRight />
-              </>
+              <button
+                className={styles.credential_icon}
+                name="email_credential"
+                aria-label="Copy email"
+                onClick={(event) =>
+                  writeClipboardText(DEMO_EMAIL, event.currentTarget.name)
+                }
+              >
+                <Copy />
+              </button>
             )}
-          </button>
-        </form>
-        <p className={styles.loginError}>{loginError}</p>
+          </li>
+          <li>
+            <span className={styles.labelCredential}>Password: </span>
+            <code>{DEMO_PASSWORD}</code>
+            {isCopied.password_credential ? (
+              <span className={styles.iconWrapper}>
+                <CircleCheck />
+              </span>
+            ) : (
+              <button
+                className={styles.credential_icon}
+                name="password_credential"
+                aria-label="Copy password"
+                onClick={(event) =>
+                  writeClipboardText(DEMO_PASSWORD, event.currentTarget.name)
+                }
+              >
+                <Copy />
+              </button>
+            )}
+          </li>
+        </ul>
+        <p>Demo data and master data are limited.</p>
       </div>
     </div>
   );
